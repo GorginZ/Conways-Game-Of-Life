@@ -3,17 +3,23 @@ namespace ConwaysGameOfLife
 {
   public class Game
   {
-    // public int[,] Grid {get;}
     private int[,] _grid = {
 
       };
 
-    public Game()
+    public Game(int rows, int columns)
     {
-      _grid = BuildGrid();
+      _grid = BuildGrid(rows, columns);
     }
 
-    public int[,] BuildGrid()
+    public int[,] BuildGrid(int rows, int columns)
+    {
+      int[,] _grid = new int[rows, columns];
+
+      return _grid;
+    }
+
+    public int[,] TenByTenGridFactory()
     {
       int[,] _grid = {
 {0,0,0,0,0,0,0,0,0,0},
@@ -38,10 +44,8 @@ namespace ConwaysGameOfLife
 
     public void Tick()
     {
-      
+
     }
 
   }
-
-
 }
