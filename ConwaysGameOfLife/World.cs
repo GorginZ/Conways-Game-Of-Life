@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 namespace ConwaysGameOfLife
 {
@@ -17,6 +18,8 @@ namespace ConwaysGameOfLife
       return grid;
     }
 
+
+
     public void Populate(string coordString)
     {
       var coordinates = coordString.Split(" ");
@@ -24,9 +27,10 @@ namespace ConwaysGameOfLife
       {
         var rowTryParse = int.TryParse(coord[0].ToString(), out int row);
         var colTryParse = int.TryParse(coord[2].ToString(), out int col);
+
         if (rowTryParse && colTryParse && col < Grid.GetLength(0) && col < Grid.GetLength(1) && row < Grid.GetLength(0) && row < Grid.GetLength(1))
         {
-                  Grid[row, col] = 1;
+          Grid[row, col] = 1;
         }
 
       }
@@ -43,6 +47,21 @@ namespace ConwaysGameOfLife
       }
 
       return true;
+    }
+
+    public void PrintWorld()
+    {
+      int gridcol = Grid.GetLength(0);
+      int gridrow = Grid.GetLength(1);
+
+      for (int i = 0; i < gridcol; i++)
+      {
+        for (int j = 0; j < gridrow; j++)
+        {
+          Console.Write(Grid[i, j]);
+        }
+        Console.WriteLine();
+      }
     }
   }
 }
