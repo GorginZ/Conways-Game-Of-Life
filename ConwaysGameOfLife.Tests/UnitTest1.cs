@@ -36,6 +36,19 @@ namespace ConwaysGameOfLife.Tests
     [Fact]
     public void CanPopulateWorld()
     {
+      var world = new World(10, 10);
+      var coords = "4,4 4,5 4,6";
+
+      world.Populate(coords);
+
+      var result = world.IsDeadWorld();
+
+      Assert.False(result);
+
+    }
+
+        public void WillPopulateAndNotBreakIfOutOfBoundsCoordsInInput()
+    {
       var world = new World(5, 5);
       var coords = "4,4 4,5 4,9";
 
@@ -44,6 +57,7 @@ namespace ConwaysGameOfLife.Tests
       var result = world.IsDeadWorld();
 
       Assert.False(result);
+      //could also check to make sure only populates one cell, but mostly about it not crashing
 
     }
 
