@@ -1,51 +1,45 @@
 using System.Collections.Generic;
 namespace ConwaysGameOfLife
 {
-  public class Game
+  public class World
   {
-    private int[,] _grid = {
+    public int[,] Grid;
 
-      };
-
-    public Game(int rows, int columns)
+    public World(int rows, int columns)
     {
-      _grid = BuildGrid(rows, columns);
+      Grid = BuildWorld(rows, columns);
     }
 
-    public int[,] BuildGrid(int rows, int columns)
+    private int[,] BuildWorld(int rows, int columns)
     {
-      int[,] _grid = new int[rows, columns];
+      var grid = new int[rows, columns];
 
-      return _grid;
+      return grid;
     }
 
-    public int[,] TenByTenGridFactory()
+    public void Populate(string coordString)
     {
-      int[,] _grid = {
-{0,0,0,0,0,0,0,0,0,0},
-{0,0,0,0,0,0,0,0,0,0},
-{0,0,0,0,0,0,0,0,0,0},
-{0,0,0,0,0,0,0,0,0,0},
-{0,0,0,0,1,1,1,0,0,0},
-{0,0,0,0,0,0,0,0,0,0},
-{0,0,0,0,0,0,0,0,0,0},
-{0,0,0,0,0,0,0,0,0,0},
-{0,0,0,0,0,0,0,0,0,0},
-{0,0,0,0,0,0,0,0,0,0}
+      var coordinates = coordString.Split(" ");
+      foreach (string coord in coordinates)
+      {
+        int row = int.Parse(coord[0].ToString());
+        int col = int.Parse(coord[2].ToString());
 
-      };
-      return _grid;
+        Grid[row, col] = 1;
+      }
     }
 
-    public int[,] GetGrid()
+    public bool IsDeadWorld()
     {
-      return _grid;
+      foreach (int element in Grid)
+      {
+        if (element == 1)
+        {
+          return false;
+        }
+      }
+
+      return true;
     }
-
-    public void Tick()
-    {
-
-    }
-
   }
 }

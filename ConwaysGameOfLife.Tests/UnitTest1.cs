@@ -3,37 +3,60 @@ using Xunit;
 
 namespace ConwaysGameOfLife.Tests
 {
-    public class UnitTest1
+  public class UnitTest1
+  {
+    [Fact]
+    public void ShouldGenerateGridWithSpecifiedDimensions()
     {
-        [Fact]
-        public void OnTickShouldChange()
-        {
-          var game = new Game(10,10);
+      var game = new World(5, 10);
 
-          var initialGrid = game.GetGrid();
-          game.Tick();
-          var transformedGrid = game.GetGrid();
+      var grid = game.Grid;
 
-          Assert.NotEqual(initialGrid, transformedGrid);
-        }
+      var gridRows = grid.GetLength(0);
+      var gridCols = grid.GetLength(1);
 
-        [Fact]
-        public void ShouldGenerateGridWithSpecifiedDimensions()
-        {
-          var game = new Game(10,10);
+      var expectedRows = 5;
+      var expectedCols = 10;
 
-          var grid = game.GetGrid();
+      Assert.Equal(expectedRows, gridRows);
+      Assert.Equal(expectedCols, gridCols);
 
-          var gridRows = grid.GetLength(1);
-          var gridCols = grid.GetLength(0);
-
-          var expectedRows = 10;
-          var expectedCols = 10;
-
-          Assert.Equal(expectedRows, gridRows);
-          Assert.Equal(expectedCols, gridCols);
-
-
-        }
     }
+
+    [Fact]
+    public void CanCreateDeadWorld()
+    {
+      var world = new World(10, 10);
+
+      var result = world.IsDeadWorld();
+
+      Assert.True(result);
+    }
+
+    [Fact]
+    public void CanPopulateWorld()
+    {
+      var world = new World(10, 10);
+      var coords = "4,4 4,5 4,6";
+
+      world.Populate(coords);
+
+      var result = world.IsDeadWorld();
+
+      Assert.False(result);
+
+    }
+
+    // populate world with dead cells
+
+    // thinking about representing cells, if alive and if dead
+
+    // test: can put live cells on world
+
+    // world sets specific live cells
+
+    // how does the world take input for where to put live cells
+
+    // what does that input looks 
+  }
 }
