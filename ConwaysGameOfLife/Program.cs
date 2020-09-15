@@ -15,7 +15,7 @@ namespace ConwaysGameOfLife
       var inputCols = Console.ReadLine();
 
       var tryParseRows = int.TryParse(inputRows, out int rows);
-      var tryParseCols = int.TryParse(inputRows, out int cols);
+      var tryParseCols = int.TryParse(inputCols, out int cols);
 
 
       var world = new World(rows, cols);

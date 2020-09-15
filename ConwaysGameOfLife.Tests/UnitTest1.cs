@@ -47,7 +47,7 @@ namespace ConwaysGameOfLife.Tests
 
     }
 
-        public void WillPopulateAndNotBreakIfOutOfBoundsCoordsInInput()
+    public void WillPopulateAndNotBreakIfOutOfBoundsCoordsInInput()
     {
       var world = new World(5, 5);
       var coords = "4,4 4,5 4,9";
@@ -59,6 +59,20 @@ namespace ConwaysGameOfLife.Tests
       Assert.False(result);
       //could also check to make sure only populates one cell, but mostly about it not crashing
 
+    }
+
+    [Fact]
+    public void ForSteppingThroughPrintWorld()
+    {
+      var world = new World(5, 10);
+      world.PrintWorld();
+      var coords = "4,4 4,5 4,9";
+
+      world.Populate(coords);
+
+      var result = world.IsDeadWorld();
+
+      Assert.True(result);
     }
 
     // populate world with dead cells

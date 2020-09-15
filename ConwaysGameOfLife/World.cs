@@ -36,6 +36,7 @@ namespace ConwaysGameOfLife
       }
     }
 
+    //one of the conditions for ending program.
     public bool IsDeadWorld()
     {
       foreach (int element in Grid)
@@ -51,12 +52,12 @@ namespace ConwaysGameOfLife
 
     public void PrintWorld()
     {
-      int gridcol = Grid.GetLength(0);
-      int gridrow = Grid.GetLength(1);
+      int gridrow = Grid.GetLength(0);
+      int gridcol = Grid.GetLength(1);
 
-      for (int i = 0; i < gridcol; i++)
+      for (int i = 0; i < gridrow; i++)
       {
-        for (int j = 0; j < gridrow; j++)
+        for (int j = 0; j < gridcol; j++)
         {
           Console.Write(Grid[i, j]);
         }
