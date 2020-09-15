@@ -11,15 +11,35 @@ namespace ConwaysGameOfLife
       Grid = BuildWorld(rows, columns);
     }
 
+
+    //have range of acceptable, what's point of tiny world or stupidly large
     private int[,] BuildWorld(int rows, int columns)
     {
       var grid = new int[rows, columns];
 
       return grid;
     }
+    public static int[,] WorldFactory()
+    {
+      int[,] grid = {
+{0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,1,1,1,0,0,0},
+{0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0}};
+
+      return grid;
+    }
 
 
 
+
+    //does this pass two digit ints? I feel like it doesn't
     public void Populate(string coordString)
     {
       var coordinates = coordString.Split(" ");
@@ -63,6 +83,11 @@ namespace ConwaysGameOfLife
         }
         Console.WriteLine();
       }
+    }
+
+    public void Tick()
+    {
+      
     }
   }
 }

@@ -61,30 +61,56 @@ namespace ConwaysGameOfLife.Tests
 
     }
 
+    // [Fact]
+    // public void ForSteppingThroughPrintWorld()
+    // {
+    //   var world = new World(5, 10);
+    //   world.PrintWorld();
+    //   var coords = "4,4 4,5 4,9";
+
+    //   world.Populate(coords);
+
+    //   var result = world.IsDeadWorld();
+
+    //   Assert.True(result);
+    // }
+
     [Fact]
-    public void ForSteppingThroughPrintWorld()
+    public void OnTickShouldChange()
     {
-      var world = new World(5, 10);
-      world.PrintWorld();
-      var coords = "4,4 4,5 4,9";
+      var world = new World(10, 10);
 
-      world.Populate(coords);
+      var initialGrid = world.Grid;
+      world.Tick();
+      var transformedGrid = world.Grid;
 
-      var result = world.IsDeadWorld();
-
-      Assert.True(result);
+      Assert.NotEqual(initialGrid, transformedGrid);
     }
 
-    // populate world with dead cells
+    [Fact]
+    public void CellWithLessThanTwoLiveNeighboursDies()
+    {
+      // Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
 
-    // thinking about representing cells, if alive and if dead
+      var world = new World(10, 10);
+      var coords = "4,4 4,5 4,6";
+      world.Populate(coords);
 
-    // test: can put live cells on world
+      var initialGrid = world.Grid;
+      var initialStateOfCellFourFour = world.Grid[4,4];
+      world.Tick();
+      var transformedGrid = world.Grid;
+      var transformedStateOfCellFourFour = world.Grid[4,4];
 
-    // world sets specific live cells
+      Assert.NotEqual(initialStateOfCellFourFour, transformedStateOfCellFourFour);
 
-    // how does the world take input for where to put live cells
+    }
 
-    // what does that input looks 
+
+
+    // Any live cell with more than three live neighbours dies, as if by overcrowding.
+    // Any live cell with two or three live neighbours lives on to the next generation.
+    // Any dead cell with exactly three live neighbours becomes a live cell.
+
   }
 }
