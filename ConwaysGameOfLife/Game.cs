@@ -22,10 +22,13 @@ namespace ConwaysGameOfLife
       var coordinates = coordString.Split(" ");
       foreach (string coord in coordinates)
       {
-        int row = int.Parse(coord[0].ToString());
-        int col = int.Parse(coord[2].ToString());
+        var rowTryParse = int.TryParse(coord[0].ToString(), out int row);
+        var colTryParse = int.TryParse(coord[2].ToString(), out int col);
+        if (rowTryParse && colTryParse && col < Grid.GetLength(0) && col < Grid.GetLength(1) && row < Grid.GetLength(0) && row < Grid.GetLength(1))
+        {
+                  Grid[row, col] = 1;
+        }
 
-        Grid[row, col] = 1;
       }
     }
 

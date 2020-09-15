@@ -36,8 +36,8 @@ namespace ConwaysGameOfLife.Tests
     [Fact]
     public void CanPopulateWorld()
     {
-      var world = new World(10, 10);
-      var coords = "4,4 4,5 4,6";
+      var world = new World(5, 5);
+      var coords = "4,4 4,5 4,9";
 
       world.Populate(coords);
 
