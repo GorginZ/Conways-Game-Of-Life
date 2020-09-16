@@ -29,6 +29,13 @@ namespace ConwaysGameOfLife
 
       Console.Clear();
       world.PrintWorld();
+
+      while (1 < 100)
+      {
+   Console.Clear();
+   world.Tick();
+      world.PrintWorld();
+      }
     }
   }
 }
