@@ -99,20 +99,25 @@ namespace ConwaysGameOfLife
     {
         int count = 0;
         
-        var left = column == 0
+        var leftNeighbour = column == 0
           ? (Grid.GetLength(1) - 1)
           : (column - 1);
 
+
+           var rightNeighbour = column == (ColCount - 1)
+          ? (0)
+          : (column + 1);
+
           // check index plus 1
           // immedite right neighbour
-          if (IsLiveCell(Grid[row, column + 1]))
+          if (IsLiveCell(Grid[row, rightNeighbour]))
           {
             count++;
           }
 
           //look immediate left neighbour
           // need special case for edge cells do next
-          if (IsLiveCell(Grid[row, left]))
+          if (IsLiveCell(Grid[row, leftNeighbour]))
           {
             count++;
           }
@@ -186,15 +191,8 @@ namespace ConwaysGameOfLife
 
           // Any live cell with two or three live neighbours lives on to the next generation.
         
-
-
        }
      }
-        
-         
-      
-
-
     }
   }
 }
