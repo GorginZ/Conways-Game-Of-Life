@@ -88,6 +88,18 @@ namespace ConwaysGameOfLife.Tests
     }
 
     [Fact]
+    public void BoolToDetermineIfCellHasTooFewNeighboursAndWillDie()
+    {
+      var world = new World(10, 10);
+      var coords = "4,4 4,5 4,6";
+      world.Populate(coords);
+      
+      // var result = world.LiveCellHasTooFewNeighbours(world.Grid[4,4]);
+
+      Assert.True(result);
+    }
+
+    [Fact]
     public void CellWithLessThanTwoLiveNeighboursDies()
     {
       // Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.

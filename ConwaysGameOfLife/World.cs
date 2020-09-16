@@ -95,19 +95,73 @@ namespace ConwaysGameOfLife
       return false;
     }
 
-    private bool LiveCellWithTooFewNeighboursNeedToDie()
+    public int NeighbourCount()
     {
+      int count = 0;
       foreach (int element in Grid)
       {
-        // int count = 0;
+        if (IsLiveCell(element))
+        {
+        //check index plus 1
+
+          // if(IsLiveCell)
+        //count ++
+
+        // check index minus 1
+          // if(IsLiveCell)
+          // count++
+
+        // check index above
+       // if(IsLiveCell)
+          // count++
+
+        // check index below
+  // if(IsLiveCell)
+          // count++
+
+        //check index diagonal right UP
+  // if(IsLiveCell)
+          // count++
+
+        // check index diagonal left UP
+  // if(IsLiveCell)
+          // count++
+
+        // check index diagonal left down
+  // if(IsLiveCell)
+          // count++
+
+        // check index diagonal right down
+          // if(IsLiveCell)
+          // count++
+
+          // return cell count
+        }
       
       }
       return true;
     }
+   // Any live cell with more than three live neighbours dies, as if by overcrowding.
 
+    // Any live cell with two or three live neighbours lives on to the next generation.
+
+    // Any dead cell with exactly three live neighbours becomes a live cell.
     public void Tick()
     {
-      // Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
+
+       foreach (int element in Grid)
+      {
+        if(IsLiveCell(element))
+        {
+              // Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
+
+                 // Any live cell with more than three live neighbours dies, as if by overcrowding.
+
+                     // Any live cell with two or three live neighbours lives on to the next generation.
+        }
+      
+      }
+  
 
     }
   }
