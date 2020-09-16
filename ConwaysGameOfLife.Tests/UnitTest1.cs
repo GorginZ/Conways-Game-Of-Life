@@ -88,38 +88,51 @@ namespace ConwaysGameOfLife.Tests
     }
 
     [Fact]
-    public void BoolToDetermineIfCellHasTooFewNeighboursAndWillDie()
+    public void ShouldSayHowManyNeighboursAreAlive()
     {
       var world = new World(10, 10);
-      var coords = "4,4 4,5 4,6";
-      world.Populate(coords);
-      
-      // var result = world.LiveCellHasTooFewNeighbours(world.Grid[4,4]);
+      var coords = "4,4 4,5 4,9";
 
-      Assert.True(result);
+      world.Populate(coords);
+      var neighbours = world.NeighbourCount();
+
+      Assert.Equal(2, neighbours);
     }
 
-    [Fact]
-    public void CellWithLessThanTwoLiveNeighboursDies()
-    {
-      // Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
 
-      var world = new World(10, 10);
-      var coords = "4,4 4,5 4,6";
-      world.Populate(coords);
+    // [Fact]
+    // public void BoolToDetermineIfCellHasTooFewNeighboursAndWillDie()
+    // {
+    //   var world = new World(10, 10);
+    //   var coords = "4,4 4,5 4,6";
+    //   world.Populate(coords);
 
-      var initialGrid = world.Grid;
-      // var initialStateOfCellFourFour = world.Grid[4,4];
-      world.Tick();
-      var transformedGrid = world.Grid;
+    //   // var result = world.LiveCellHasTooFewNeighbours(world.Grid[4,4]);
 
-      var result = world.IsLiveCell(world.Grid[4,4]);
+    //   Assert.True(result);
+    // }
 
-      // var transformedStateOfCellFourFour = world.Grid[4,4];
+    // [Fact]
+    // public void CellWithLessThanTwoLiveNeighboursDies()
+    // {
+    //   // Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
 
-      Assert.False(result);
+    //   var world = new World(10, 10);
+    //   var coords = "4,4 4,5 4,6";
+    //   world.Populate(coords);
 
-    }
+    //   var initialGrid = world.Grid;
+    //   // var initialStateOfCellFourFour = world.Grid[4,4];
+    //   world.Tick();
+    //   var transformedGrid = world.Grid;
+
+    //   var result = world.IsLiveCell(world.Grid[4,4]);
+
+    //   // var transformedStateOfCellFourFour = world.Grid[4,4];
+
+    //   Assert.False(result);
+
+    // }
 
 
 

@@ -100,68 +100,74 @@ namespace ConwaysGameOfLife
       int count = 0;
       foreach (int element in Grid)
       {
-        if (IsLiveCell(element))
-        {
-        //check index plus 1
+          //check index plus 1
+          //immedite right neighbour
+          if (IsLiveCell(Grid[element, element + 1]))
+          {
+            count++;
+          }
+          //look immediate left neighbour
+          // need special case for edge cells do next
+          if (IsLiveCell(Grid[element, element - 1]))
+          {
+            count++;
+          }
+          // check index above
+          if (IsLiveCell(Grid[element - 1, element]))
+          {
+            count++;
+          }
 
-          // if(IsLiveCell)
-        //count ++
+          // check index below
 
-        // check index minus 1
-          // if(IsLiveCell)
-          // count++
+          if (IsLiveCell(Grid[element + 1, element]))
+          {
+            count++;
+          }
 
-        // check index above
-       // if(IsLiveCell)
-          // count++
+          //check index diagonal right UP
+          if (IsLiveCell(Grid[element - 1, element + 1]))
+          {
+            count++;
+          }
 
-        // check index below
-  // if(IsLiveCell)
-          // count++
+          // check index diagonal left UP
+          if (IsLiveCell(Grid[element - 1, element - 1]))
+          {
+            count++;
+          }
 
-        //check index diagonal right UP
-  // if(IsLiveCell)
-          // count++
+          // check index diagonal left down
+          if (IsLiveCell(Grid[element + 1, element - 1]))
+          {
+            count++;
+          }
 
-        // check index diagonal left UP
-  // if(IsLiveCell)
-          // count++
-
-        // check index diagonal left down
-  // if(IsLiveCell)
-          // count++
-
-        // check index diagonal right down
-          // if(IsLiveCell)
-          // count++
-
-          // return cell count
-        }
-      
+          // check index diagonal right down
+          if (IsLiveCell(Grid[element + 1, element + 1]))
+          {
+            count++;
+          }
       }
-      return true;
+      return count;
     }
-   // Any live cell with more than three live neighbours dies, as if by overcrowding.
 
-    // Any live cell with two or three live neighbours lives on to the next generation.
-
-    // Any dead cell with exactly three live neighbours becomes a live cell.
     public void Tick()
     {
 
-       foreach (int element in Grid)
+      foreach (int element in Grid)
       {
-        if(IsLiveCell(element))
+        if (IsLiveCell(element))
         {
-              // Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
+          // Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
 
-                 // Any live cell with more than three live neighbours dies, as if by overcrowding.
+          // Any live cell with more than three live neighbours dies, as if by overcrowding.
 
-                     // Any live cell with two or three live neighbours lives on to the next generation.
+          // Any live cell with two or three live neighbours lives on to the next generation.
         }
-      
+
       }
-  
+
 
     }
   }
