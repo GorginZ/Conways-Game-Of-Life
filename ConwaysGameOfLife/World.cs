@@ -95,60 +95,65 @@ namespace ConwaysGameOfLife
       return false;
     }
 
-    public int NeighbourCount()
+    public int NeighbourCount(int row, int column)
     {
-      int count = 0;
-      foreach (int element in Grid)
-      {
-          //check index plus 1
-          //immedite right neighbour
-          if (IsLiveCell(Grid[element, element + 1]))
+        int count = 0;
+        
+        var left = column == 0
+          ? (Grid.GetLength(1) - 1)
+          : (column - 1);
+
+          // check index plus 1
+          // immedite right neighbour
+          if (IsLiveCell(Grid[row, column + 1]))
           {
             count++;
           }
+
           //look immediate left neighbour
           // need special case for edge cells do next
-          if (IsLiveCell(Grid[element, element - 1]))
+          if (IsLiveCell(Grid[row, left]))
           {
             count++;
           }
           // check index above
-          if (IsLiveCell(Grid[element - 1, element]))
+          if (IsLiveCell(Grid[row - 1, column]))
           {
             count++;
           }
 
           // check index below
 
-          if (IsLiveCell(Grid[element + 1, element]))
+          if (IsLiveCell(Grid[row + 1, column]))
           {
             count++;
           }
 
           //check index diagonal right UP
-          if (IsLiveCell(Grid[element - 1, element + 1]))
+          if (IsLiveCell(Grid[row - 1, column + 1]))
           {
             count++;
           }
 
           // check index diagonal left UP
-          if (IsLiveCell(Grid[element - 1, element - 1]))
+          if (IsLiveCell(Grid[row - 1, left]))
           {
             count++;
           }
 
           // check index diagonal left down
-          if (IsLiveCell(Grid[element + 1, element - 1]))
+          if (IsLiveCell(Grid[row + 1, left]))
           {
             count++;
           }
 
           // check index diagonal right down
-          if (IsLiveCell(Grid[element + 1, element + 1]))
+          if (IsLiveCell(Grid[row + 1, column + 1]))
           {
             count++;
           }
-      }
+      
+
       return count;
     }
 

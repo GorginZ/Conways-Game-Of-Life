@@ -47,6 +47,7 @@ namespace ConwaysGameOfLife.Tests
 
     }
 
+[Fact]
     public void WillPopulateAndNotBreakIfOutOfBoundsCoordsInInput()
     {
       var world = new World(5, 5);
@@ -91,10 +92,10 @@ namespace ConwaysGameOfLife.Tests
     public void ShouldSayHowManyNeighboursAreAlive()
     {
       var world = new World(10, 10);
-      var coords = "4,4 4,5 4,9";
+      var coords = "4,4 4,5 4,6";
 
       world.Populate(coords);
-      var neighbours = world.NeighbourCount();
+      var neighbours = world.NeighbourCount(4,5);
 
       Assert.Equal(2, neighbours);
     }
