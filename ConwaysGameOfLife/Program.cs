@@ -30,12 +30,20 @@ namespace ConwaysGameOfLife
       Console.Clear();
       world.PrintWorld();
 
-      while (1 < 100)
+      while (!world.IsDeadWorld())
       {
-   Console.Clear();
-   world.Tick();
-      world.PrintWorld();
+        Console.WriteLine("press Y key to 'tick N to cancel");
+        world.PrintWorld();
+        var userinput = Console.ReadLine();
+        if (userinput == "Y")
+        {
+          Console.Clear();
+          world.Tick();
+          world.PrintWorld();
+        }
+
       }
+
     }
   }
 }
