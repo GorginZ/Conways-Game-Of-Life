@@ -97,12 +97,15 @@ namespace ConwaysGameOfLife.Tests
       world.Populate(coords);
 
       var initialGrid = world.Grid;
-      var initialStateOfCellFourFour = world.Grid[4,4];
+      // var initialStateOfCellFourFour = world.Grid[4,4];
       world.Tick();
       var transformedGrid = world.Grid;
-      var transformedStateOfCellFourFour = world.Grid[4,4];
 
-      Assert.NotEqual(initialStateOfCellFourFour, transformedStateOfCellFourFour);
+      var result = world.IsLiveCell(world.Grid[4,4]);
+
+      // var transformedStateOfCellFourFour = world.Grid[4,4];
+
+      Assert.False(result);
 
     }
 

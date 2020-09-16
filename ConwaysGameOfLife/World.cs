@@ -66,7 +66,6 @@ namespace ConwaysGameOfLife
           return false;
         }
       }
-
       return true;
     }
 
@@ -85,9 +84,31 @@ namespace ConwaysGameOfLife
       }
     }
 
+    public bool IsLiveCell(int valueAtIndex)
+    {
+
+      if (valueAtIndex == 1)
+      {
+        return true;
+
+      }
+      return false;
+    }
+
+    private bool LiveCellWithTooFewNeighboursNeedToDie()
+    {
+      foreach (int element in Grid)
+      {
+        // int count = 0;
+      
+      }
+      return true;
+    }
+
     public void Tick()
     {
-      
+      // Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
+
     }
   }
 }
