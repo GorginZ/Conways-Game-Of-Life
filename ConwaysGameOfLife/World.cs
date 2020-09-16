@@ -157,21 +157,42 @@ namespace ConwaysGameOfLife
       return count;
     }
 
+    public int RowCount => Grid.GetLength(0);
+    public int ColumnCount => Grid.GetLength(1);
+
+    public void Die(int row, int column)
+    {
+      Grid[row,column] = 0;
+    }
+  
+    public void Live(int row, int column)
+    {
+      Grid[row,column] = 1;
+    }
+
     public void Tick()
     {
+     for (int row = 0; row < RowCount)
+     {
+       for (int column = 0; column < ColumnCount)
+       {
+         var neighbours = CountNeighbours(row, column);
+         //dying rule
 
-      foreach (int element in Grid)
-      {
-        if (IsLiveCell(element))
-        {
           // Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
+          Die(row, column);
 
           // Any live cell with more than three live neighbours dies, as if by overcrowding.
 
           // Any live cell with two or three live neighbours lives on to the next generation.
-        }
+        
 
-      }
+
+       }
+     }
+        
+         
+      
 
 
     }
