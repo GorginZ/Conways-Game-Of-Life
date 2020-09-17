@@ -176,10 +176,28 @@ namespace ConwaysGameOfLife.Tests
 
     }
 
+    [Fact]
+    static void Any_Live_Cell_With_More_Than_Three_Live_Neighbours_Dies()
+    {
+      var world = new World(10, 10);
+      var coords = "4,4 4,5 4,6 5,3 5,4 5,5";
+      world.Populate(coords);
+
+      Assert.True(world.IsLiveCell(world.Grid[5, 4]));
+      Assert.True(world.IsLiveCell(world.Grid[5, 5]));
+      Assert.True(world.IsLiveCell(world.Grid[4, 4]));
+      Assert.True(world.IsLiveCell(world.Grid[4, 5]));
+
+      world.Tick();
+
+      Assert.False(world.IsLiveCell(world.Grid[4, 4]));
+      Assert.False(world.IsLiveCell(world.Grid[4, 5]));
+      Assert.False(world.IsLiveCell(world.Grid[4, 4]));
+      Assert.False(world.IsLiveCell(world.Grid[4, 5]));
+
+    }
 
 
-    // Any live cell with more than three live neighbours dies, as if by overcrowding.
-    // Any live cell with two or three live neighbours lives on to the next generation.
     // Any dead cell with exactly three live neighbours becomes a live cell.
 
   }
