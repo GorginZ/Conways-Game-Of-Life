@@ -62,32 +62,24 @@ namespace ConwaysGameOfLife.Tests
 
     }
 
-    // [Fact]
-    // public void ForSteppingThroughPrintWorld()
-    // {
-    //   var world = new World(5, 10);
-    //   world.PrintWorld();
-    //   var coords = "4,4 4,5 4,9";
-
-    //   world.Populate(coords);
-
-    //   var result = world.IsDeadWorld();
-
-    //   Assert.True(result);
-    // }
-
     [Fact]
     public void OnTickShouldChange()
     {
       var world = new World(10, 10);
-      var coords = "0,0 0,1 0,2 4,4 4,5 4,6";
+      var coords = "3,3 4,3 5,3";
 
       world.Populate(coords);
-      var initialGrid = world.Grid;
-      world.Tick();
-      var transformedGrid = world.Grid;
 
-      Assert.NotEqual(initialGrid, transformedGrid);
+      Assert.Equal(1, world.Grid[3, 3]);
+      Assert.Equal(1, world.Grid[4, 3]);
+      Assert.Equal(1, world.Grid[5, 3]);
+
+      world.Tick();
+
+      Assert.NotEqual(1, world.Grid[3, 3]);
+      Assert.Equal(1, world.Grid[4, 3]);
+      Assert.NotEqual(1, world.Grid[5, 3]);
+
     }
 
     [Fact]
@@ -167,39 +159,22 @@ namespace ConwaysGameOfLife.Tests
     }
 
 
-    // [Fact]
-    // public void BoolToDetermineIfCellHasTooFewNeighboursAndWillDie()
-    // {
-    //   var world = new World(10, 10);
-    //   var coords = "4,4 4,5 4,6";
-    //   world.Populate(coords);
+    [Fact]
+    public void Any_Live_Cell_With_Fewer_Than_Two_Live_Neighbours_Dies()
+    {
+      var world = new World(10, 10);
+      var coords = "4,4 4,5 4,6";
+      world.Populate(coords);
 
-    //   // var result = world.LiveCellHasTooFewNeighbours(world.Grid[4,4]);
+      Assert.True(world.IsLiveCell(world.Grid[4, 4]));
+      Assert.True(world.IsLiveCell(world.Grid[4, 6]));
 
-    //   Assert.True(result);
-    // }
+      world.Tick();
 
-    // [Fact]
-    // public void CellWithLessThanTwoLiveNeighboursDies()
-    // {
-    //   // Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
+      Assert.False(world.IsLiveCell(world.Grid[4, 4]));
+      Assert.False(world.IsLiveCell(world.Grid[4, 6]));
 
-    //   var world = new World(10, 10);
-    //   var coords = "4,4 4,5 4,6";
-    //   world.Populate(coords);
-
-    //   var initialGrid = world.Grid;
-    //   // var initialStateOfCellFourFour = world.Grid[4,4];
-    //   world.Tick();
-    //   var transformedGrid = world.Grid;
-
-    //   var result = world.IsLiveCell(world.Grid[4,4]);
-
-    //   // var transformedStateOfCellFourFour = world.Grid[4,4];
-
-    //   Assert.False(result);
-
-    // }
+    }
 
 
 
