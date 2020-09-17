@@ -39,6 +39,7 @@ namespace ConwaysGameOfLife
         {
           Console.Clear();
           world.Tick();
+          world.Grid = world.TickGrid;
           world.PrintWorld(world.Grid);
         }
     }

@@ -219,7 +219,7 @@ namespace ConwaysGameOfLife
           }
         }
       }
-      Grid = TickGrid;
+      // Grid = TickGrid;
     }
 
   }
