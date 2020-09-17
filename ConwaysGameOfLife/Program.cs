@@ -19,7 +19,7 @@ namespace ConwaysGameOfLife
 
 
       var world = new World(rows, cols);
-      world.PrintWorld();
+      world.PrintWorld(world.Grid);
 
       Console.WriteLine("innoculate world with some live cells");
       Console.WriteLine("input your coordinates in the following format: 0,0 0,1 0,2 4,4 2,2 ");
@@ -28,18 +28,18 @@ namespace ConwaysGameOfLife
       world.Populate(coords);
 
       Console.Clear();
-      world.PrintWorld();
+      world.PrintWorld(world.Grid);
 
     while (1 < 100)
     { 
          Console.WriteLine("press Y key to 'tick N to cancel");
-        world.PrintWorld();
+      
         var userinput = Console.ReadLine();
         if (userinput == "Y")
         {
           Console.Clear();
           world.Tick();
-          world.PrintWorld();
+          world.PrintWorld(world.Grid);
         }
     }
      

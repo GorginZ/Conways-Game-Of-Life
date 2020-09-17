@@ -6,9 +6,12 @@ namespace ConwaysGameOfLife
   {
     public int[,] Grid;
 
+    public int[,] TickGrid;
+
     public World(int rows, int columns)
     {
       Grid = BuildWorld(rows, columns);
+      TickGrid = BuildWorld(rows, columns);
     }
 
 
@@ -69,7 +72,7 @@ namespace ConwaysGameOfLife
       return true;
     }
 
-    public void PrintWorld()
+    public void PrintWorld(int[,] currentWorld)
     {
       int gridrow = Grid.GetLength(0);
       int gridcol = Grid.GetLength(1);
@@ -78,7 +81,7 @@ namespace ConwaysGameOfLife
       {
         for (int j = 0; j < gridcol; j++)
         {
-          Console.Write(Grid[i, j]);
+          Console.Write(currentWorld[i, j]);
         }
         Console.WriteLine();
       }
@@ -176,12 +179,12 @@ namespace ConwaysGameOfLife
 
     public void Die(int row, int column)
     {
-      Grid[row, column] = 0;
+      TickGrid[row, column] = 0;
     }
 
     public void Live(int row, int column)
     {
-      Grid[row, column] = 1;
+      TickGrid[row, column] = 1;
     }
 
     public void Tick()
@@ -207,8 +210,7 @@ namespace ConwaysGameOfLife
           // Any live cell with two or three live neighbours lives on to the next generation.
           if (IsLiveCell(Grid[row, column]) && (neighbours.Equals(3) || neighbours.Equals(2)))
           {
-            // Live(row, column);
-            //don't need to do anything
+            Live(row, column);
           }
           // Any dead cell with exactly three live neighbours becomes a live cell.
           if (!IsLiveCell(Grid[row, column]) && neighbours.Equals(3))
@@ -217,6 +219,8 @@ namespace ConwaysGameOfLife
           }
         }
       }
+      Grid = TickGrid;
     }
+
   }
 }

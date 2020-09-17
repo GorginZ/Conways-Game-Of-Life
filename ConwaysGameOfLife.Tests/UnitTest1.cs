@@ -47,7 +47,7 @@ namespace ConwaysGameOfLife.Tests
 
     }
 
-[Fact]
+    [Fact]
     public void WillPopulateAndNotBreakIfOutOfBoundsCoordsInInput()
     {
       var world = new World(5, 5);
@@ -80,7 +80,9 @@ namespace ConwaysGameOfLife.Tests
     public void OnTickShouldChange()
     {
       var world = new World(10, 10);
+      var coords = "0,0 0,1 0,2 4,4 4,5 4,6";
 
+      world.Populate(coords);
       var initialGrid = world.Grid;
       world.Tick();
       var transformedGrid = world.Grid;
@@ -95,9 +97,46 @@ namespace ConwaysGameOfLife.Tests
       var coords = "4,4 4,5 4,6";
 
       world.Populate(coords);
-      var neighbours = world.NeighbourCount(4,5);
+      var neighbours = world.NeighbourCount(4, 5);
 
       Assert.Equal(2, neighbours);
+    }
+
+    [Fact]
+    public void ShouldReproduceOscilatingPattern()
+    {
+      var coords = "3,3 4,3 5,3";
+      var world = new World(10, 10);
+
+      world.Populate(coords);
+
+      Assert.Equal(1, world.Grid[3, 3]);
+      Assert.Equal(1, world.Grid[4, 3]);
+      Assert.Equal(1, world.Grid[5, 3]);
+
+      Assert.Equal(0, world.Grid[4, 2]);
+      Assert.Equal(1, world.Grid[4, 3]);
+      Assert.Equal(0, world.Grid[4, 4]);
+
+      world.Tick();
+
+      Assert.Equal(0, world.Grid[3, 3]);
+      Assert.Equal(1, world.Grid[4, 3]);
+      Assert.Equal(0, world.Grid[5, 3]);
+
+      Assert.Equal(1, world.Grid[4, 2]);
+      Assert.Equal(1, world.Grid[4, 3]);
+      Assert.Equal(1, world.Grid[4, 4]);
+
+      world.Tick();
+
+      Assert.Equal(1, world.Grid[3, 3]);
+      Assert.Equal(1, world.Grid[4, 3]);
+      Assert.Equal(1, world.Grid[5, 3]);
+
+      Assert.Equal(0, world.Grid[4, 2]);
+      Assert.Equal(1, world.Grid[4, 3]);
+      Assert.Equal(0, world.Grid[4, 4]);
     }
 
 
