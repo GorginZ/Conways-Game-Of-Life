@@ -98,7 +98,7 @@ namespace ConwaysGameOfLife
       return false;
     }
 
-    public int NeighbourCount(int row, int column)
+    public int NeighbourCount(int[,] gridCopy, int row, int column)
     {
       int count = 0;
 
@@ -122,50 +122,50 @@ namespace ConwaysGameOfLife
 
       // check index plus 1
       // immedite right neighbour
-      if (IsLiveCell(Grid[row, rightNeighbour]))
+      if (IsLiveCell(gridCopy[row, rightNeighbour]))
       {
         count++;
       }
 
       //look immediate left neighbour
       // need special case for edge cells do next
-      if (IsLiveCell(Grid[row, leftNeighbour]))
+      if (IsLiveCell(gridCopy[row, leftNeighbour]))
       {
         count++;
       }
       // check index above
-      if (IsLiveCell(Grid[upNeighbour, column]))
+      if (IsLiveCell(gridCopy[upNeighbour, column]))
       {
         count++;
       }
 
       // check index below
 
-      if (IsLiveCell(Grid[downNeighbour, column]))
+      if (IsLiveCell(gridCopy[downNeighbour, column]))
       {
         count++;
       }
 
       //check index diagonal right UP
-      if (IsLiveCell(Grid[upNeighbour, rightNeighbour]))
+      if (IsLiveCell(gridCopy[upNeighbour, rightNeighbour]))
       {
         count++;
       }
 
       // check index diagonal left UP
-      if (IsLiveCell(Grid[upNeighbour, leftNeighbour]))
+      if (IsLiveCell(gridCopy[upNeighbour, leftNeighbour]))
       {
         count++;
       }
 
       // check index diagonal left down
-      if (IsLiveCell(Grid[downNeighbour, leftNeighbour]))
+      if (IsLiveCell(gridCopy[downNeighbour, leftNeighbour]))
       {
         count++;
       }
 
       // check index diagonal right down
-      if (IsLiveCell(Grid[downNeighbour, rightNeighbour]))
+      if (IsLiveCell(gridCopy[downNeighbour, rightNeighbour]))
       {
         count++;
       }
@@ -179,47 +179,52 @@ namespace ConwaysGameOfLife
 
     public void Die(int row, int column)
     {
-      TickGrid[row, column] = 0;
+      Grid[row, column] = 0;
     }
 
     public void Live(int row, int column)
     {
-      TickGrid[row, column] = 1;
+      Grid[row, column] = 1;
     }
 
     public void Tick()
     {
+
+
+int[,] gridCopy = Grid.Clone() as int[,];
+
       for (int row = 0; row < RowCount; row++)
       {
         for (int column = 0; column < ColumnCount; column++)
         {
-          var neighbours = NeighbourCount(row, column);
+          var neighbours = NeighbourCount(gridCopy, row, column);
 
           // Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
-          if (IsLiveCell(Grid[row, column]) && neighbours < 2)
+          if (IsLiveCell(gridCopy[row, column]) && neighbours < 2)
           {
             Die(row, column);
           }
 
           // Any live cell with more than three live neighbours dies, as if by overcrowding.
-          if (IsLiveCell(Grid[row, column]) && neighbours > 3)
+          if (IsLiveCell(gridCopy[row, column]) && neighbours > 3)
           {
             Die(row, column);
           }
 
           // Any live cell with two or three live neighbours lives on to the next generation.
-          if (IsLiveCell(Grid[row, column]) && (neighbours.Equals(3) || neighbours.Equals(2)))
+          if (IsLiveCell(gridCopy[row, column]) && (neighbours.Equals(3) || neighbours.Equals(2)))
           {
             Live(row, column);
           }
           // Any dead cell with exactly three live neighbours becomes a live cell.
-          if (!IsLiveCell(Grid[row, column]) && neighbours.Equals(3))
+          if (!IsLiveCell(gridCopy[row, column]) && neighbours.Equals(3))
           {
             Live(row, column);
           }
         }
       }
-      Grid = TickGrid;
+
+   
     }
 
   }

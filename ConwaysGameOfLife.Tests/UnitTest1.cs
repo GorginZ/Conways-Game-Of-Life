@@ -97,7 +97,7 @@ namespace ConwaysGameOfLife.Tests
       var coords = "4,4 4,5 4,6";
 
       world.Populate(coords);
-      var neighbours = world.NeighbourCount(4, 5);
+      var neighbours = world.NeighbourCount(world.Grid, 4, 5);
 
       Assert.Equal(2, neighbours);
     }
