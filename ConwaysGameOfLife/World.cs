@@ -6,12 +6,10 @@ namespace ConwaysGameOfLife
   {
     public int[,] Grid;
 
-    public int[,] TickGrid;
 
     public World(int rows, int columns)
     {
       Grid = BuildWorld(rows, columns);
-      TickGrid = BuildWorld(rows, columns);
     }
 
 
@@ -22,24 +20,6 @@ namespace ConwaysGameOfLife
 
       return grid;
     }
-    public static int[,] WorldFactory()
-    {
-      int[,] grid = {
-{0,0,0,0,0,0,0,0,0,0},
-{0,0,0,0,0,0,0,0,0,0},
-{0,0,0,0,0,0,0,0,0,0},
-{0,0,0,0,0,0,0,0,0,0},
-{0,0,0,0,1,1,1,0,0,0},
-{0,0,0,0,0,0,0,0,0,0},
-{0,0,0,0,0,0,0,0,0,0},
-{0,0,0,0,0,0,0,0,0,0},
-{0,0,0,0,0,0,0,0,0,0},
-{0,0,0,0,0,0,0,0,0,0}};
-
-      return grid;
-    }
-
-
 
 
     //does this pass two digit ints? I feel like it doesn't
