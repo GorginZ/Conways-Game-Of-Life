@@ -115,49 +115,6 @@ namespace ConwaysGameOfLife.Tests
       Assert.Equal(initialOneFive, transformedOneFive);
     }
 
-    [Fact]
-    public void ShouldReproduceOscilatingPattern()
-    {
-      var coords = "3,3 4,3 5,3";
-      var world = new World(10, 10);
-
-      world.Populate(coords);
-      world.PrintWorld(world.Grid);
-      Console.WriteLine();
-
-      Assert.Equal(1, world.Grid[3, 3]);
-      Assert.Equal(1, world.Grid[4, 3]);
-      Assert.Equal(1, world.Grid[5, 3]);
-
-      Assert.Equal(0, world.Grid[4, 2]);
-      Assert.Equal(1, world.Grid[4, 3]);
-      Assert.Equal(0, world.Grid[4, 4]);
-
-      world.Tick();
-      world.PrintWorld(world.Grid);
-      Console.WriteLine();
-
-      Assert.Equal(0, world.Grid[3, 3]);
-      Assert.Equal(1, world.Grid[4, 3]);
-      Assert.Equal(0, world.Grid[5, 3]);
-
-      Assert.Equal(1, world.Grid[4, 2]);
-      Assert.Equal(1, world.Grid[4, 3]);
-      Assert.Equal(1, world.Grid[4, 4]);
-
-      world.Tick();
-      world.PrintWorld(world.Grid);
-      Console.WriteLine();
-
-      Assert.Equal(1, world.Grid[3, 3]);
-      Assert.Equal(1, world.Grid[4, 3]);
-      Assert.Equal(1, world.Grid[5, 3]);
-
-      Assert.Equal(0, world.Grid[4, 2]);
-      Assert.Equal(1, world.Grid[4, 3]);
-      Assert.Equal(0, world.Grid[4, 4]);
-    }
-
 
     [Fact]
     public void Any_Live_Cell_With_Fewer_Than_Two_Live_Neighbours_Dies()
@@ -197,8 +154,75 @@ namespace ConwaysGameOfLife.Tests
 
     }
 
+    [Fact]
+    static void Any_Dead_Cell_With_Exactly_Three_Live_Neighbours_Becomes_Live()
+    {
+      var world = new World(10, 10);
+      var coords = "4,4 4,5 4,6 5,3 5,4 5,5";
+      world.Populate(coords);
 
-    // Any dead cell with exactly three live neighbours becomes a live cell.
+      Assert.True(world.IsLiveCell(world.Grid[5, 4]));
+      Assert.True(world.IsLiveCell(world.Grid[5, 5]));
+      Assert.True(world.IsLiveCell(world.Grid[4, 4]));
+      Assert.True(world.IsLiveCell(world.Grid[4, 5]));
+
+      world.Tick();
+
+      Assert.False(world.IsLiveCell(world.Grid[4, 4]));
+      Assert.False(world.IsLiveCell(world.Grid[4, 5]));
+      Assert.False(world.IsLiveCell(world.Grid[4, 4]));
+      Assert.False(world.IsLiveCell(world.Grid[4, 5]));
+
+      world.Tick();
+
+      Assert.True(world.IsLiveCell(world.Grid[5, 4]));
+      Assert.True(world.IsLiveCell(world.Grid[5, 5]));
+      Assert.True(world.IsLiveCell(world.Grid[4, 4]));
+      Assert.True(world.IsLiveCell(world.Grid[4, 5]));
+
+    }
+    [Fact]
+    public void ShouldReproduceOscilatingPatterns()
+    {
+      var coords = "3,3 4,3 5,3";
+      var world = new World(10, 10);
+
+      world.Populate(coords);
+      world.PrintWorld(world.Grid);
+      Console.WriteLine();
+
+      Assert.True(world.IsLiveCell(world.Grid[3, 3]));
+      Assert.True(world.IsLiveCell(world.Grid[4, 3]));
+      Assert.True(world.IsLiveCell(world.Grid[5, 3]));
+
+      Assert.False(world.IsLiveCell(world.Grid[4, 2]));
+      Assert.True(world.IsLiveCell(world.Grid[4, 3]));
+      Assert.False(world.IsLiveCell(world.Grid[4, 4]));
+
+      world.Tick();
+      world.PrintWorld(world.Grid);
+      Console.WriteLine();
+
+      Assert.False(world.IsLiveCell(world.Grid[3, 3]));
+      Assert.True(world.IsLiveCell(world.Grid[4, 3]));
+      Assert.False(world.IsLiveCell(world.Grid[5, 3]));
+
+      Assert.True(world.IsLiveCell(world.Grid[4, 2]));
+      Assert.True(world.IsLiveCell(world.Grid[4, 3]));
+      Assert.True(world.IsLiveCell(world.Grid[4, 4]));
+
+      world.Tick();
+      world.PrintWorld(world.Grid);
+      Console.WriteLine();
+
+      Assert.True(world.IsLiveCell(world.Grid[3, 3]));
+      Assert.True(world.IsLiveCell(world.Grid[4, 3]));
+      Assert.True(world.IsLiveCell(world.Grid[5, 3]));
+
+      Assert.False(world.IsLiveCell(world.Grid[4, 2]));
+      Assert.True(world.IsLiveCell(world.Grid[4, 3]));
+      Assert.False(world.IsLiveCell(world.Grid[4, 4]));
+    }
 
   }
 }
