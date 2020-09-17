@@ -6,6 +6,7 @@ namespace ConwaysGameOfLife.Tests
 {
   public class UnitTest1
   {
+
     [Fact]
     public void ShouldGenerateGridWithSpecifiedDimensions()
     {
@@ -91,23 +92,23 @@ namespace ConwaysGameOfLife.Tests
     [Fact]
     public void Any_Live_Cell_With_Two_Live_Neighbours_Lives()
     {
-   var coords = "1,5 1,6, 1,7";
+      var coords = "1,5 1,6, 1,7";
       var world = new World(10, 10);
 
       world.Populate(coords);
       world.Tick();
-      Assert.True(world.IsLiveCell(world.Grid[1,6]));
+      Assert.True(world.IsLiveCell(world.Grid[1, 6]));
     }
 
     [Fact]
     public void Any_Live_Cell_With_Three_Live_Neighbours_Lives()
     {
-   var coords = "1,5 1,6, 1,7 0,6";
+      var coords = "1,5 1,6, 1,7 0,6";
       var world = new World(10, 10);
 
       world.Populate(coords);
-          world.Tick();
-      Assert.True(world.IsLiveCell(world.Grid[1,6]));
+      world.Tick();
+      Assert.True(world.IsLiveCell(world.Grid[1, 6]));
     }
 
 
@@ -146,11 +147,11 @@ namespace ConwaysGameOfLife.Tests
       var world = new World(10, 10);
       var coords = "4,4 4,5 4,6 5,3 5,4 5,5";
       world.Populate(coords);
-      
+
       world.Tick();
 
       Assert.True(world.IsLiveCell(world.Grid[5, 6]));
- 
+
     }
 
   }
