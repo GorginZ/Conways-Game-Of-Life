@@ -106,17 +106,18 @@ namespace ConwaysGameOfLife.Tests
 
     public void Any_Live_Cell_With_Two_Or_Three_Live_Neighbours_Lives()
     {
-      var coords = "3,3 4,3 5,3 1,4 1,5, 1,6";
+      var coords = "3,3 4,3 5,3 1,5 1,6, 1,7";
       var world = new World(10, 10);
 
       world.Populate(coords);
       var initialFourThree = world.Grid[4, 3];
-      var initialOneFive = world.Grid[1, 5];
+      var initialOneFive = world.Grid[1, 6];
       world.PrintWorld(world.Grid);
       world.Tick();
+      Console.WriteLine();
       world.PrintWorld(world.Grid);
       var transformedFourThree = world.Grid[4, 3];
-      var transformedOneFive = world.Grid[1, 5];
+      var transformedOneFive = world.Grid[1, 6];
 
       Assert.Equal(initialFourThree, transformedFourThree);
       Assert.Equal(initialOneFive, transformedOneFive);
@@ -129,6 +130,8 @@ namespace ConwaysGameOfLife.Tests
       var world = new World(10, 10);
 
       world.Populate(coords);
+      world.PrintWorld(world.Grid);
+      Console.WriteLine();
 
       Assert.Equal(1, world.Grid[3, 3]);
       Assert.Equal(1, world.Grid[4, 3]);
@@ -139,6 +142,8 @@ namespace ConwaysGameOfLife.Tests
       Assert.Equal(0, world.Grid[4, 4]);
 
       world.Tick();
+      world.PrintWorld(world.Grid);
+      Console.WriteLine();
 
       Assert.Equal(0, world.Grid[3, 3]);
       Assert.Equal(1, world.Grid[4, 3]);
@@ -149,6 +154,8 @@ namespace ConwaysGameOfLife.Tests
       Assert.Equal(1, world.Grid[4, 4]);
 
       world.Tick();
+      world.PrintWorld(world.Grid);
+      Console.WriteLine();
 
       Assert.Equal(1, world.Grid[3, 3]);
       Assert.Equal(1, world.Grid[4, 3]);
