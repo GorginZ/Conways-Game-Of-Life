@@ -103,6 +103,26 @@ namespace ConwaysGameOfLife.Tests
     }
 
     [Fact]
+
+    public void Any_Live_Cell_With_Two_Or_Three_Live_Neighbours_Lives()
+    {
+      var coords = "3,3 4,3 5,3 1,4 1,5, 1,6";
+      var world = new World(10, 10);
+
+      world.Populate(coords);
+      var initialFourThree = world.Grid[4, 3];
+      var initialOneFive = world.Grid[1, 5];
+      world.PrintWorld(world.Grid);
+      world.Tick();
+      world.PrintWorld(world.Grid);
+      var transformedFourThree = world.Grid[4, 3];
+      var transformedOneFive = world.Grid[1, 5];
+
+      Assert.Equal(initialFourThree, transformedFourThree);
+      Assert.Equal(initialOneFive, transformedOneFive);
+    }
+
+    [Fact]
     public void ShouldReproduceOscilatingPattern()
     {
       var coords = "3,3 4,3 5,3";
