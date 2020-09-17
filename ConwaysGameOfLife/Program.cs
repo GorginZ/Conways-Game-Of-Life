@@ -30,9 +30,9 @@ namespace ConwaysGameOfLife
       Console.Clear();
       world.PrintWorld();
 
-      while (!world.IsDeadWorld())
-      {
-        Console.WriteLine("press Y key to 'tick N to cancel");
+    while (1 < 100)
+    { 
+         Console.WriteLine("press Y key to 'tick N to cancel");
         world.PrintWorld();
         var userinput = Console.ReadLine();
         if (userinput == "Y")
@@ -41,8 +41,10 @@ namespace ConwaysGameOfLife
           world.Tick();
           world.PrintWorld();
         }
+    }
+     
 
-      }
+      
 
     }
   }
