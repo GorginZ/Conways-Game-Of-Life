@@ -4,7 +4,7 @@ namespace ConwaysGameOfLife
 {
   public class World
   {
-    public int[,] Grid;
+    public CellState[,] Grid;
 
 
     public World(int rows, int columns)
@@ -14,9 +14,9 @@ namespace ConwaysGameOfLife
 
 
     //have range of acceptable, what's point of tiny world or stupidly large
-    private int[,] BuildWorld(int rows, int columns)
+    private CellState[,] BuildWorld(int rows, int columns)
     {
-      var grid = new int[rows, columns];
+      var grid = new CellState[rows, columns];
 
       return grid;
     }
@@ -33,7 +33,7 @@ namespace ConwaysGameOfLife
 
         if (rowTryParse && colTryParse && col < Grid.GetLength(0) && col < Grid.GetLength(1) && row < Grid.GetLength(0) && row < Grid.GetLength(1))
         {
-          Grid[row, col] = 1;
+          Grid[row, col] = CellState.Alive;
         }
 
       }
@@ -44,7 +44,7 @@ namespace ConwaysGameOfLife
     {
       foreach (int element in Grid)
       {
-        if (element == 1)
+        if (element.Equals(CellState.Alive))
         {
           return false;
         }
@@ -52,7 +52,7 @@ namespace ConwaysGameOfLife
       return true;
     }
 
-    public void PrintWorld(int[,] currentWorld)
+    public void PrintWorld(CellState[,] currentWorld)
     {
       int gridrow = Grid.GetLength(0);
       int gridcol = Grid.GetLength(1);
@@ -67,10 +67,10 @@ namespace ConwaysGameOfLife
       }
     }
 
-    public bool IsLiveCell(int valueAtIndex)
+    public bool IsLiveCell(CellState valueAtIndex)
     {
 
-      if (valueAtIndex == 1)
+      if (valueAtIndex.Equals(CellState.Alive))
       {
         return true;
 
@@ -78,7 +78,7 @@ namespace ConwaysGameOfLife
       return false;
     }
 
-    public int NeighbourCount(int[,] gridCopy, int row, int column)
+    public int NeighbourCount(CellState[,] gridCopy, int row, int column)
     {
       int count = 0;
 
@@ -159,19 +159,19 @@ namespace ConwaysGameOfLife
 
     public void Die(int row, int column)
     {
-      Grid[row, column] = 0;
+      Grid[row, column] = CellState.Dead;
     }
 
     public void Live(int row, int column)
     {
-      Grid[row, column] = 1;
+      Grid[row, column] = CellState.Alive;
     }
 
     public void Tick()
     {
 
 
-int[,] gridCopy = Grid.Clone() as int[,];
+CellState[,] gridCopy = Grid.Clone() as CellState[,];
 
       for (int row = 0; row < RowCount; row++)
       {
