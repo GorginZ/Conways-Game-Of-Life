@@ -92,9 +92,10 @@ namespace ConwaysGameOfLife.Tests
       var coordinateList = Coordinates.DigestCoordinates(coords);
       world.Populate(coordinateList);
 
-      var neighbours = world.LiveNeighbourCount(world.Grid, 4, 5);
+      var neighboursList = world.GetNeighbours(world.Grid, 4, 5);
+      var numberOfLiveNeighbours = world.LiveNeighbourCount( world.Grid, neighboursList);
 
-      Assert.Equal(2, neighbours);
+      Assert.Equal(2, numberOfLiveNeighbours);
     }
 
     [Fact]

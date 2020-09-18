@@ -26,7 +26,7 @@ namespace ConwaysGameOfLife
     {
       foreach (Coordinates coordinate in coordinates)
       {
-        if (coordinate.Column < Grid.GetLength(0) && coordinate.Column < Grid.GetLength(1) && coordinate.Row < Grid.GetLength(0) && coordinate.Row < Grid.GetLength(1))
+        if (coordinate.Column < ColumnCount && coordinate.Row < RowCount)
         {
           Grid[coordinate.Row, coordinate.Column] = CellState.Alive;
         }
@@ -75,20 +75,18 @@ namespace ConwaysGameOfLife
       return false;
     }
 
-    public int LiveNeighbourCount(CellState[,] gridCopy, int row, int column)
+    public List<Coordinates> GetNeighbours(CellState[,] grieCopy, int row, int column)
     {
-      int count = 0;
-
       var leftNeighbour = column == 0 ? (Grid.GetLength(1) - 1) : (column - 1);
 
       var rightNeighbour = column == (ColumnCount - 1) ? (0) : (column + 1);
 
-      var upNeighbour = row == 0 ? (Grid.GetLength(0) - 1)  : (row - 1);
+      var upNeighbour = row == 0 ? (Grid.GetLength(0) - 1) : (row - 1);
 
       var downNeighbour = row == (RowCount - 1) ? (0) : (row + 1);
 
       var neighbourList = new List<Coordinates>();
-      
+
       neighbourList.Add(new Coordinates { Row = row, Column = rightNeighbour });
       neighbourList.Add(new Coordinates { Row = row, Column = leftNeighbour });
       neighbourList.Add(new Coordinates { Row = upNeighbour, Column = column });
@@ -97,6 +95,12 @@ namespace ConwaysGameOfLife
       neighbourList.Add(new Coordinates { Row = upNeighbour, Column = leftNeighbour });
       neighbourList.Add(new Coordinates { Row = downNeighbour, Column = rightNeighbour });
       neighbourList.Add(new Coordinates { Row = downNeighbour, Column = leftNeighbour });
+
+      return neighbourList;
+    }
+    public int LiveNeighbourCount(CellState[,] gridCopy, List<Coordinates> neighbourList)
+    {
+      int count = 0;
 
       foreach (Coordinates coordinate in neighbourList)
       {
@@ -131,27 +135,29 @@ namespace ConwaysGameOfLife
       {
         for (int column = 0; column < ColumnCount; column++)
         {
-          var neighbours = LiveNeighbourCount(gridCopy, row, column);
+
+          var neighboursList = GetNeighbours(gridCopy, row, column);
+          var numberOfLiveNeighbours = LiveNeighbourCount(gridCopy, neighboursList);
 
           // Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
-          if (IsLiveCell(gridCopy[row, column]) && neighbours < 2)
+          if (IsLiveCell(gridCopy[row, column]) && numberOfLiveNeighbours < 2)
           {
             Die(row, column);
           }
 
           // Any live cell with more than three live neighbours dies, as if by overcrowding.
-          if (IsLiveCell(gridCopy[row, column]) && neighbours > 3)
+          if (IsLiveCell(gridCopy[row, column]) && numberOfLiveNeighbours > 3)
           {
             Die(row, column);
           }
 
           // Any live cell with two or three live neighbours lives on to the next generation.
-          if (IsLiveCell(gridCopy[row, column]) && (neighbours.Equals(3) || neighbours.Equals(2)))
+          if (IsLiveCell(gridCopy[row, column]) && (numberOfLiveNeighbours.Equals(3) || numberOfLiveNeighbours.Equals(2)))
           {
             Live(row, column);
           }
           // Any dead cell with exactly three live neighbours becomes a live cell.
-          if (!IsLiveCell(gridCopy[row, column]) && neighbours.Equals(3))
+          if (!IsLiveCell(gridCopy[row, column]) && numberOfLiveNeighbours.Equals(3))
           {
             Live(row, column);
           }
