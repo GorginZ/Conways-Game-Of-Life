@@ -22,20 +22,14 @@ namespace ConwaysGameOfLife
     }
 
 
-    //does this pass two digit ints? I feel like it doesn't
-    public void Populate(string coordString)
+    public void Populate(List<Coordinates> coordinates)
     {
-      var coordinates = coordString.Split(" ");
-      foreach (string coord in coordinates)
+      foreach (Coordinates coordinate in coordinates)
       {
-        var rowTryParse = int.TryParse(coord[0].ToString(), out int row);
-        var colTryParse = int.TryParse(coord[2].ToString(), out int col);
-
-        if (rowTryParse && colTryParse && col < Grid.GetLength(0) && col < Grid.GetLength(1) && row < Grid.GetLength(0) && row < Grid.GetLength(1))
+        if (coordinate.Column < Grid.GetLength(0) && coordinate.Column < Grid.GetLength(1) && coordinate.Row < Grid.GetLength(0) && coordinate.Row < Grid.GetLength(1))
         {
-          Grid[row, col] = CellState.Alive;
+          Grid[coordinate.Row, coordinate.Column] = CellState.Alive;
         }
-
       }
     }
 
@@ -171,7 +165,7 @@ namespace ConwaysGameOfLife
     {
 
 
-CellState[,] gridCopy = Grid.Clone() as CellState[,];
+      CellState[,] gridCopy = Grid.Clone() as CellState[,];
 
       for (int row = 0; row < RowCount; row++)
       {
@@ -204,7 +198,7 @@ CellState[,] gridCopy = Grid.Clone() as CellState[,];
         }
       }
 
-   
+
     }
 
   }

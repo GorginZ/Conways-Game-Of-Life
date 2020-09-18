@@ -1,6 +1,7 @@
 using System;
 using Xunit;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace ConwaysGameOfLife.Tests
 {
@@ -38,9 +39,10 @@ namespace ConwaysGameOfLife.Tests
     public void CanPopulateWorld()
     {
       var world = new World(10, 10);
-      var coords = "4,4 4,5 4,6";
+      var coordinates = new List<Coordinates> {};
+      
 
-      world.Populate(coords);
+      world.Populate(coordinates);
 
       var result = world.IsDeadWorld();
 
