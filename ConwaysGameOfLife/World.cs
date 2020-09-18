@@ -74,8 +74,8 @@ namespace ConwaysGameOfLife
       }
       return false;
     }
-
-    public List<Coordinates> GetNeighbours(CellState[,] grieCopy, int row, int column)
+// does it need gridcopy?
+    public List<Coordinates> GetNeighbours(CellState[,] gridCopy, int row, int column)
     {
       var leftNeighbour = column == 0 ? (Grid.GetLength(1) - 1) : (column - 1);
 
@@ -137,6 +137,7 @@ namespace ConwaysGameOfLife
         {
 
           var neighboursList = GetNeighbours(gridCopy, row, column);
+
           var numberOfLiveNeighbours = LiveNeighbourCount(gridCopy, neighboursList);
 
           // Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
