@@ -75,8 +75,10 @@ namespace ConwaysGameOfLife
       return false;
     }
 
-    public int NeighbourCount(CellState[,] gridCopy, int row, int column)
+    public int LiveNeighbourCount(CellState[,] gridCopy, int row, int column)
     {
+
+
       int count = 0;
 
       var leftNeighbour = column == 0
@@ -96,52 +98,58 @@ namespace ConwaysGameOfLife
            ? (0)
            : (row + 1);
 
+      var neighbourList = new List<Coordinates>();
 
-      // check index plus 1
-      // immedite right neighbour
+      neighbourList.Add( new Coordinates { Row = row, Column = rightNeighbour });
+      var leftNeighbourCoord = new Coordinates { Row = row, Column = leftNeighbour };
+      var upNeighbourCoord = new Coordinates { Row = upNeighbour, Column = column };
+      var downNeighbourCoord = new Coordinates { Row = downNeighbour, Column = column };
+      var diagonalRightUpNeighbourCoord = new Coordinates { Row = upNeighbour, Column = rightNeighbour };
+      var diagonalLeftUpNeighbourCoord = new Coordinates { Row = upNeighbour, Column = leftNeighbour };
+      var diagonalRightDownNeighbourCoord = new Coordinates { Row = downNeighbour, Column = rightNeighbour };
+      var diagonalLeftDownNeighbourCoord = new Coordinates { Row = downNeighbour, Column = leftNeighbour };
+
+      // right neighbour
       if (IsLiveCell(gridCopy[row, rightNeighbour]))
       {
         count++;
       }
 
-      //look immediate left neighbour
-      // need special case for edge cells do next
+      //left neighbour
       if (IsLiveCell(gridCopy[row, leftNeighbour]))
       {
         count++;
       }
-      // check index above
+      // up neighbour
       if (IsLiveCell(gridCopy[upNeighbour, column]))
       {
         count++;
       }
 
-      // check index below
-
+      // down neighbour
       if (IsLiveCell(gridCopy[downNeighbour, column]))
       {
         count++;
       }
-
-      //check index diagonal right UP
+      //diagonal right UP
       if (IsLiveCell(gridCopy[upNeighbour, rightNeighbour]))
       {
         count++;
       }
 
-      // check index diagonal left UP
+      // diagonal left UP
       if (IsLiveCell(gridCopy[upNeighbour, leftNeighbour]))
       {
         count++;
       }
 
-      // check index diagonal left down
+      // diagonal left down
       if (IsLiveCell(gridCopy[downNeighbour, leftNeighbour]))
       {
         count++;
       }
 
-      // check index diagonal right down
+      // diagonal right down
       if (IsLiveCell(gridCopy[downNeighbour, rightNeighbour]))
       {
         count++;
@@ -174,7 +182,7 @@ namespace ConwaysGameOfLife
       {
         for (int column = 0; column < ColumnCount; column++)
         {
-          var neighbours = NeighbourCount(gridCopy, row, column);
+          var neighbours = LiveNeighbourCount(gridCopy, row, column);
 
           // Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
           if (IsLiveCell(gridCopy[row, column]) && neighbours < 2)
