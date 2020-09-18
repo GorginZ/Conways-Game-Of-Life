@@ -79,23 +79,16 @@ namespace ConwaysGameOfLife
     {
       int count = 0;
 
-      var leftNeighbour = column == 0
-        ? (Grid.GetLength(1) - 1)
-        : (column - 1);
+      var leftNeighbour = column == 0 ? (Grid.GetLength(1) - 1) : (column - 1);
 
-      var rightNeighbour = column == (ColumnCount - 1)
-     ? (0)
-     : (column + 1);
+      var rightNeighbour = column == (ColumnCount - 1) ? (0) : (column + 1);
 
-      var upNeighbour = row == 0
-        ? (Grid.GetLength(0) - 1)
-        : (row - 1);
+      var upNeighbour = row == 0 ? (Grid.GetLength(0) - 1)  : (row - 1);
 
-      var downNeighbour = row == (RowCount - 1)
-           ? (0)
-           : (row + 1);
+      var downNeighbour = row == (RowCount - 1) ? (0) : (row + 1);
 
       var neighbourList = new List<Coordinates>();
+      
       neighbourList.Add(new Coordinates { Row = row, Column = rightNeighbour });
       neighbourList.Add(new Coordinates { Row = row, Column = leftNeighbour });
       neighbourList.Add(new Coordinates { Row = upNeighbour, Column = column });
