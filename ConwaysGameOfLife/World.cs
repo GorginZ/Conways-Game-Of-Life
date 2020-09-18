@@ -77,14 +77,11 @@ namespace ConwaysGameOfLife
 
     public int LiveNeighbourCount(CellState[,] gridCopy, int row, int column)
     {
-
-
       int count = 0;
 
       var leftNeighbour = column == 0
         ? (Grid.GetLength(1) - 1)
         : (column - 1);
-
 
       var rightNeighbour = column == (ColumnCount - 1)
      ? (0)
@@ -99,63 +96,22 @@ namespace ConwaysGameOfLife
            : (row + 1);
 
       var neighbourList = new List<Coordinates>();
+      neighbourList.Add(new Coordinates { Row = row, Column = rightNeighbour });
+      neighbourList.Add(new Coordinates { Row = row, Column = leftNeighbour });
+      neighbourList.Add(new Coordinates { Row = upNeighbour, Column = column });
+      neighbourList.Add(new Coordinates { Row = downNeighbour, Column = column });
+      neighbourList.Add(new Coordinates { Row = upNeighbour, Column = rightNeighbour });
+      neighbourList.Add(new Coordinates { Row = upNeighbour, Column = leftNeighbour });
+      neighbourList.Add(new Coordinates { Row = downNeighbour, Column = rightNeighbour });
+      neighbourList.Add(new Coordinates { Row = downNeighbour, Column = leftNeighbour });
 
-      neighbourList.Add( new Coordinates { Row = row, Column = rightNeighbour });
-      var leftNeighbourCoord = new Coordinates { Row = row, Column = leftNeighbour };
-      var upNeighbourCoord = new Coordinates { Row = upNeighbour, Column = column };
-      var downNeighbourCoord = new Coordinates { Row = downNeighbour, Column = column };
-      var diagonalRightUpNeighbourCoord = new Coordinates { Row = upNeighbour, Column = rightNeighbour };
-      var diagonalLeftUpNeighbourCoord = new Coordinates { Row = upNeighbour, Column = leftNeighbour };
-      var diagonalRightDownNeighbourCoord = new Coordinates { Row = downNeighbour, Column = rightNeighbour };
-      var diagonalLeftDownNeighbourCoord = new Coordinates { Row = downNeighbour, Column = leftNeighbour };
-
-      // right neighbour
-      if (IsLiveCell(gridCopy[row, rightNeighbour]))
+      foreach (Coordinates coordinate in neighbourList)
       {
-        count++;
+        if (IsLiveCell(gridCopy[coordinate.Row, coordinate.Column]))
+        {
+          count++;
+        }
       }
-
-      //left neighbour
-      if (IsLiveCell(gridCopy[row, leftNeighbour]))
-      {
-        count++;
-      }
-      // up neighbour
-      if (IsLiveCell(gridCopy[upNeighbour, column]))
-      {
-        count++;
-      }
-
-      // down neighbour
-      if (IsLiveCell(gridCopy[downNeighbour, column]))
-      {
-        count++;
-      }
-      //diagonal right UP
-      if (IsLiveCell(gridCopy[upNeighbour, rightNeighbour]))
-      {
-        count++;
-      }
-
-      // diagonal left UP
-      if (IsLiveCell(gridCopy[upNeighbour, leftNeighbour]))
-      {
-        count++;
-      }
-
-      // diagonal left down
-      if (IsLiveCell(gridCopy[downNeighbour, leftNeighbour]))
-      {
-        count++;
-      }
-
-      // diagonal right down
-      if (IsLiveCell(gridCopy[downNeighbour, rightNeighbour]))
-      {
-        count++;
-      }
-
-
       return count;
     }
 
