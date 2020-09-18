@@ -33,17 +33,20 @@ namespace ConwaysGameOfLife
       }
     }
 
-    //one of the conditions for ending program.
     public bool IsDeadWorld()
     {
-      foreach (int element in Grid)
+      for (int row = 0; row < RowCount; row++)
       {
-        if (element.Equals(CellState.Alive))
+        for (int column = 0; column < ColumnCount; column++)
         {
-          return false;
+          if (IsLiveCell(Grid[row, column]))
+          {
+            return false;
+          }
         }
       }
       return true;
+
     }
 
     public void PrintWorld(CellState[,] currentWorld)

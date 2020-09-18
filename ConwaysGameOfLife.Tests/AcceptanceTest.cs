@@ -3,15 +3,17 @@ using Xunit;
 
 namespace ConwaysGameOfLife.Tests
 {
-    public class AcceptanceTest
-    {
-         [Fact]
+  public class AcceptanceTest
+  {
+    [Fact]
     public void ShouldReproduceOscilatingPatterns()
     {
       var coords = "3,3 4,3 5,3";
       var world = new World(10, 10);
 
-      world.Populate(coords);
+      var coordinateList = Coordinates.DigestCoordinates(coords);
+      world.Populate(coordinateList);
+
       world.PrintWorld(world.Grid);
       Console.WriteLine();
 
@@ -47,5 +49,5 @@ namespace ConwaysGameOfLife.Tests
       Assert.True(world.IsLiveCell(world.Grid[4, 3]));
       Assert.False(world.IsLiveCell(world.Grid[4, 4]));
     }
-    }
+  }
 }
