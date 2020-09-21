@@ -93,7 +93,7 @@ namespace ConwaysGameOfLife.Tests
       world.Populate(coordinateList);
 
       var neighboursList = world.GetNeighbours(4, 5);
-      var numberOfLiveNeighbours = world.LiveNeighbourCount( world.Grid, neighboursList);
+      var numberOfLiveNeighbours = world.LiveNeighbourCount(world.Grid, neighboursList);
 
       Assert.Equal(2, numberOfLiveNeighbours);
     }
@@ -172,6 +172,31 @@ namespace ConwaysGameOfLife.Tests
       Assert.True(world.IsLiveCell(world.Grid[5, 6]));
 
     }
+    [Fact]
+    static void Neighbours_Should_Wrap_Over_On_Y_Axis()
+    {
+      var world = new World(10, 10);
+      var coords = "0,0 0,1 0,2";
+      var coordinateList = Coordinates.DigestCoordinates(coords);
+      world.Populate(coordinateList);
+
+      world.Tick();
+
+      Assert.True(world.IsLiveCell(world.Grid[9, 1]));
+    }
+    [Fact]
+    static void Neighbours_Should_Wrap_Over_On_X_Axis()
+    {
+      var world = new World(10, 10);
+      var coords = "0,0 1,0 2,0";
+      var coordinateList = Coordinates.DigestCoordinates(coords);
+      world.Populate(coordinateList);
+
+      world.Tick();
+    
+      Assert.True(world.IsLiveCell(world.Grid[1, 9]));
+    }
+
 
   }
 }
