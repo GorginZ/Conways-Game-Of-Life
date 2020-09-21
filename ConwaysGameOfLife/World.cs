@@ -75,7 +75,7 @@ namespace ConwaysGameOfLife
       return false;
     }
 // does it need gridcopy?
-    public List<Coordinates> GetNeighbours(CellState[,] gridCopy, int row, int column)
+    public List<Coordinates> GetNeighbours(int row, int column)
     {
       var leftNeighbour = column == 0 ? (Grid.GetLength(1) - 1) : (column - 1);
 
@@ -136,7 +136,7 @@ namespace ConwaysGameOfLife
         for (int column = 0; column < ColumnCount; column++)
         {
 
-          var neighboursList = GetNeighbours(gridCopy, row, column);
+          var neighboursList = GetNeighbours(row, column);
 
           var numberOfLiveNeighbours = LiveNeighbourCount(gridCopy, neighboursList);
 
