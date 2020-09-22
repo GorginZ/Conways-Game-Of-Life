@@ -179,11 +179,17 @@ namespace ConwaysGameOfLife.Tests
       var coords = "0,0 0,1 0,2";
       var coordinateList = Coordinates.DigestCoordinates(coords);
       world.Populate(coordinateList);
+      var neighboursList = world.GetNeighbours(0, 1);
+// fails
+      // Assert.Contains(new Coordinates{Row = 9, Column = 1}, neighboursList);
+      //fails
+      // Assert.Equal(new Coordinates{Row = 9, Column = 1}, neighboursList[2]);
 
-      world.Tick();
-
-      Assert.True(world.IsLiveCell(world.Grid[9, 1]));
+      //maybe I should name the neighbours. maybe I could use that to do other cool stuff
+      Assert.Equal(neighboursList[2].Row, 9);
+      Assert.Equal(neighboursList[2].Column, 1);
     }
+
     [Fact]
     static void Neighbours_Should_Wrap_Over_On_X_Axis()
     {
@@ -191,10 +197,9 @@ namespace ConwaysGameOfLife.Tests
       var coords = "0,0 1,0 2,0";
       var coordinateList = Coordinates.DigestCoordinates(coords);
       world.Populate(coordinateList);
+      var neighboursList = world.GetNeighbours(1, 0);
 
-      world.Tick();
-    
-      Assert.True(world.IsLiveCell(world.Grid[1, 9]));
+      Assert.Contains(new Coordinates { Row = 1, Column = 9 }, neighboursList);
     }
 
 
