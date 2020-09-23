@@ -66,22 +66,22 @@ namespace ConwaysGameOfLife.Tests
 
     }
 
-    // [Fact]
-    // public void OnTickShouldChange()
-    // {
-    //   var world = new World(10, 10);
-    //   var coords = "3,3 4,3 5,3";
+    [Fact]
+    public void OnTickShouldChange()
+    {
+      var world = new World(10, 10);
+      var coords = "3,3 4,3 5,3";
 
-    //   var coordinateList = Coordinates.DigestCoordinates(coords);
-    //   world.Populate(coordinateList);
+      var coordinateList = Coordinates.DigestCoordinates(coords);
+      world.Populate(coordinateList);
 
 
-    //   var gridCopy = world.Grid.Clone() as int[,];
+      var gridCopy = world.Grid.Clone() as CellState[,];
 
-    //   world.Tick();
+      world.Tick();
 
-    //   Assert.NotEqual(gridCopy, world.Grid);
-    // }
+      Assert.NotEqual(gridCopy, world.Grid);
+    }
 
     [Fact]
     public void ShouldSayHowManyNeighboursAreAlive()
@@ -180,20 +180,9 @@ namespace ConwaysGameOfLife.Tests
       var coordinateList = Coordinates.DigestCoordinates(coords);
       world.Populate(coordinateList);
       var neighboursList = world.GetNeighbours(0, 1);
-      // fails
+  
       Assert.Contains(new Coordinates(9,1), neighboursList);
-      //fails
-      // Assert.Equal(new Coordinates(9,1).Column, neighboursList[2].Column);
-
-      //maybe I should name the neighbours. maybe I could use that to do other cool stuff
-
-      // Assert.Equal(neighboursList[2].Row, 9);
-      // Assert.Equal(neighboursList[2].Column, 1);
-
-// var list = new List<int> {1,2,3};
-//  Assert.Contains(2, list);
-
-      // Assert.True(neighboursList.Contains(new Coordinates(9, 1)));
+     
     }
 
     [Fact]

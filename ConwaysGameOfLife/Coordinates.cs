@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace ConwaysGameOfLife
 {
-  public class Coordinates
+  public struct Coordinates
   {
     public int Row;
     public int Column;
