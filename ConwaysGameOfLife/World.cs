@@ -7,16 +7,18 @@ namespace ConwaysGameOfLife
     public CellState[,] Grid;
 
 
-    public World(int rows, int columns)
+    public World(int rowDimension, int columnDimension)
     {
-      Grid = BuildWorld(rows, columns);
+      Grid = BuildWorld(rowDimension, columnDimension);
     }
 
 
     //have range of acceptable, what's point of tiny world or stupidly large
-    private CellState[,] BuildWorld(int rows, int columns)
+
+    //take a coordinate
+    private CellState[,] BuildWorld(int rowDimension, int columnDimension)
     {
-      var grid = new CellState[rows, columns];
+      var grid = new CellState[rowDimension, columnDimension];
 
       return grid;
     }
@@ -74,7 +76,7 @@ namespace ConwaysGameOfLife
       }
       return false;
     }
-// does it need gridcopy?
+    // does it need gridcopy?
     public List<Coordinates> GetNeighbours(int row, int column)
     {
       var leftNeighbour = column == 0 ? (Grid.GetLength(1) - 1) : (column - 1);
@@ -87,14 +89,14 @@ namespace ConwaysGameOfLife
 
       var neighbourList = new List<Coordinates>();
 
-      neighbourList.Add(new Coordinates { Row = row, Column = rightNeighbour });
-      neighbourList.Add(new Coordinates { Row = row, Column = leftNeighbour });
-      neighbourList.Add(new Coordinates { Row = upNeighbour, Column = column });
-      neighbourList.Add(new Coordinates { Row = downNeighbour, Column = column });
-      neighbourList.Add(new Coordinates { Row = upNeighbour, Column = rightNeighbour });
-      neighbourList.Add(new Coordinates { Row = upNeighbour, Column = leftNeighbour });
-      neighbourList.Add(new Coordinates { Row = downNeighbour, Column = rightNeighbour });
-      neighbourList.Add(new Coordinates { Row = downNeighbour, Column = leftNeighbour });
+      neighbourList.Add(new Coordinates(row, rightNeighbour));
+      neighbourList.Add(new Coordinates(row, leftNeighbour));
+      neighbourList.Add(new Coordinates(upNeighbour, column));
+      neighbourList.Add(new Coordinates(downNeighbour, column));
+      neighbourList.Add(new Coordinates(upNeighbour, rightNeighbour));
+      neighbourList.Add(new Coordinates(upNeighbour, leftNeighbour));
+      neighbourList.Add(new Coordinates(downNeighbour, rightNeighbour));
+      neighbourList.Add(new Coordinates(downNeighbour, leftNeighbour));
 
       return neighbourList;
     }

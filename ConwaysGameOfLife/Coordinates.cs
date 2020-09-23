@@ -7,6 +7,12 @@ namespace ConwaysGameOfLife
     public int Row;
     public int Column;
 
+    public Coordinates(int row, int column)
+    {
+      Row = row;
+      Column = column;
+    }
+
     public static List<Coordinates> DigestCoordinates(string coordString)
     {
       var coordinatesList = new List<Coordinates>();
@@ -14,11 +20,11 @@ namespace ConwaysGameOfLife
       foreach (string coord in coordinates)
       {
         var rowTryParse = int.TryParse(coord[0].ToString(), out int row);
-        var colTryParse = int.TryParse(coord[2].ToString(), out int col);
+        var colTryParse = int.TryParse(coord[2].ToString(), out int column);
 
         if (rowTryParse && colTryParse)
         {
-          coordinatesList.Add(new Coordinates { Row = row, Column = col });
+          coordinatesList.Add(new Coordinates (row, column));
         }
       }
       return coordinatesList;

@@ -180,14 +180,20 @@ namespace ConwaysGameOfLife.Tests
       var coordinateList = Coordinates.DigestCoordinates(coords);
       world.Populate(coordinateList);
       var neighboursList = world.GetNeighbours(0, 1);
-// fails
-      // Assert.Contains(new Coordinates{Row = 9, Column = 1}, neighboursList);
+      // fails
+      Assert.Contains(new Coordinates(9,1), neighboursList);
       //fails
-      // Assert.Equal(new Coordinates{Row = 9, Column = 1}, neighboursList[2]);
+      // Assert.Equal(new Coordinates(9,1).Column, neighboursList[2].Column);
 
       //maybe I should name the neighbours. maybe I could use that to do other cool stuff
-      Assert.Equal(neighboursList[2].Row, 9);
-      Assert.Equal(neighboursList[2].Column, 1);
+
+      // Assert.Equal(neighboursList[2].Row, 9);
+      // Assert.Equal(neighboursList[2].Column, 1);
+
+// var list = new List<int> {1,2,3};
+//  Assert.Contains(2, list);
+
+      // Assert.True(neighboursList.Contains(new Coordinates(9, 1)));
     }
 
     [Fact]
@@ -199,7 +205,7 @@ namespace ConwaysGameOfLife.Tests
       world.Populate(coordinateList);
       var neighboursList = world.GetNeighbours(1, 0);
 
-      Assert.Contains(new Coordinates { Row = 1, Column = 9 }, neighboursList);
+      Assert.Contains(new Coordinates (1,9), neighboursList);
     }
 
 
