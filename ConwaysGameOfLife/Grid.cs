@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace ConwaysGameOfLife
@@ -36,5 +37,9 @@ namespace ConwaysGameOfLife
         }
       }
     }
+    public T Clone<T>(T what) where T: ICloneable
+{
+   return (T) what.Clone();
+}
   }
 }

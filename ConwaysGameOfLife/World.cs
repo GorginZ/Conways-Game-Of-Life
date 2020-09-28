@@ -4,14 +4,14 @@ namespace ConwaysGameOfLife
 {
   public class World
   {
-    private Grid _grid ;
+    private Grid<CellState> _grid;
 
     public World(int rowDimension, int columnDimension)
     {
-      _grid = new Grid(rowDimension, columnDimension);
+      _grid = new Grid<CellState>(rowDimension, columnDimension);
     }
 
-    public Grid GetGrid()
+    public Grid<CellState> GetGrid()
     {
       return _grid;
     }
@@ -22,7 +22,7 @@ namespace ConwaysGameOfLife
       {
         for (int column = 0; column < _grid.ColumnCount; column++)
         {
-          if (IsLiveCell(_grid.CellGrid[row, column]))
+          if (IsLiveCell(_grid[row, column]))
           {
             return false;
           }
@@ -32,20 +32,23 @@ namespace ConwaysGameOfLife
 
     }
 
-    public void PrintWorld(Grid cellGrid)
+    public void PrintWorld(Grid<CellState> grid)
     {
-      int gridrow = _grid.CellGrid.GetLength(0);
-      int gridcol = _grid.CellGrid.GetLength(1);
-
-      for (int i = 0; i < gridrow; i++)
+      for (int i = 0; i < _grid.RowCount; i++)
       {
-        for (int j = 0; j < gridcol; j++)
+        for (int j = 0; j < _grid.ColumnCount; j++)
         {
-          Console.Write(cellGrid.CellGrid[i, j]);
+          Console.Write(grid[i, j]);
         }
         Console.WriteLine();
       }
     }
+
+       public void PopulateGrid(List<Coordinates> CoordinatesList)
+    {
+      _grid.SetMany(CoordinatesList, CellState.Alive);
+    }
+
 
     public bool IsLiveCell(CellState valueAtIndex)
     {
@@ -57,14 +60,13 @@ namespace ConwaysGameOfLife
       }
       return false;
     }
-    // does it need gridcopy?
     public List<Coordinates> GetNeighbours(int row, int column)
     {
-      var leftNeighbour = column == 0 ? (_grid.CellGrid.GetLength(1) - 1) : (column - 1);
+      var leftNeighbour = column == 0 ? (_grid.ColumnCount - 1) : (column - 1);
 
       var rightNeighbour = column == (_grid.ColumnCount - 1) ? (0) : (column + 1);
 
-      var upNeighbour = row == 0 ? (_grid.CellGrid.GetLength(0) - 1) : (row - 1);
+      var upNeighbour = row == 0 ? (_grid.RowCount - 1) : (row - 1);
 
       var downNeighbour = row == (_grid.RowCount - 1) ? (0) : (row + 1);
 
@@ -100,19 +102,19 @@ namespace ConwaysGameOfLife
 
     private void Die(int row, int column)
     {
-      _grid.CellGrid[row, column] = CellState.Dead;
+      _grid[row, column] = CellState.Dead;
     }
 
     private void Live(int row, int column)
     {
-      _grid.CellGrid[row, column] = CellState.Alive;
+      _grid[row, column] = CellState.Alive;
     }
 
     public void Tick()
     {
 
-
-      CellState[,] gridCopy = _grid.CellGrid.Clone() as CellState[,];
+      //generalized class. needs a clone()
+      CellState[,] gridCopy = _grid.Clone() as CellState[,];
 
       for (int row = 0; row < _grid.RowCount; row++)
       {
