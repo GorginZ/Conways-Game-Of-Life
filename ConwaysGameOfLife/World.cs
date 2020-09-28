@@ -5,22 +5,15 @@ namespace ConwaysGameOfLife
   public class World
   {
     private Grid _grid ;
-    private UserInput _userInput;
-    public World()
+
+    public World(int rowDimension, int columnDimension)
     {
-      _grid = new Grid(_userInput.UserInputValue, _userInput.UserInputValue);
-     _userInput = new UserInput();
+      _grid = new Grid(rowDimension, columnDimension);
     }
 
     public Grid GetGrid()
     {
       return _grid;
-    }
-
-    public void PopulateWorldWithListOfUserInputCoordinates()
-    {
-      var coordinatesList = Coordinates.DigestCoordinates(_userInput.UserInputCoordinates);
-      _grid.PopulateGrid(coordinatesList);
     }
 
     public bool IsDeadWorld()
