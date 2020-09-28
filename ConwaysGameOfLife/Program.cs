@@ -27,6 +27,7 @@ namespace ConwaysGameOfLife
       var coords = Console.ReadLine();
       var coordinateList = Coordinates.DigestCoordinates(coords);
       world.Populate(coordinateList);
+  
 
       Console.Clear();
       world.PrintWorld(world.Grid);

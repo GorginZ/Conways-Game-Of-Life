@@ -114,15 +114,15 @@ namespace ConwaysGameOfLife
       return count;
     }
 
-    public int RowCount => Grid.GetLength(0);
-    public int ColumnCount => Grid.GetLength(1);
+    private int RowCount => Grid.GetLength(0);
+    private int ColumnCount => Grid.GetLength(1);
 
-    public void Die(int row, int column)
+    private void Die(int row, int column)
     {
       Grid[row, column] = CellState.Dead;
     }
 
-    public void Live(int row, int column)
+    private void Live(int row, int column)
     {
       Grid[row, column] = CellState.Alive;
     }

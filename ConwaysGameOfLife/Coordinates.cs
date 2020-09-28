@@ -12,6 +12,7 @@ namespace ConwaysGameOfLife
       Row = row;
       Column = column;
     }
+// should coordinates be a data structure? Should I remove 'behaviour'
 
     public static List<Coordinates> DigestCoordinates(string coordString)
     {
