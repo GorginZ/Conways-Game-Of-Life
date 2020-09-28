@@ -4,44 +4,32 @@ namespace ConwaysGameOfLife
 {
   public class World
   {
-    public CellState[,] Grid;
-
-
-    public World(int rowDimension, int columnDimension)
+    private Grid _grid ;
+    private UserInput _userInput;
+    public World()
     {
-      Grid = BuildWorld(rowDimension, columnDimension);
+      _grid = new Grid(_userInput.UserInputValue, _userInput.UserInputValue);
+     _userInput = new UserInput();
     }
 
-
-    //have range of acceptable, what's point of tiny world or stupidly large
-
-    //take a coordinate
-    private CellState[,] BuildWorld(int rowDimension, int columnDimension)
+    public Grid GetGrid()
     {
-      var grid = new CellState[rowDimension, columnDimension];
-
-      return grid;
+      return _grid;
     }
 
-
-    public void Populate(List<Coordinates> coordinates)
+    public void PopulateWorldWithListOfUserInputCoordinates()
     {
-      foreach (Coordinates coordinate in coordinates)
-      {
-        if (coordinate.Column < ColumnCount && coordinate.Row < RowCount)
-        {
-          Grid[coordinate.Row, coordinate.Column] = CellState.Alive;
-        }
-      }
+      var coordinatesList = Coordinates.DigestCoordinates(_userInput.UserInputCoordinates);
+      _grid.PopulateGrid(coordinatesList);
     }
 
     public bool IsDeadWorld()
     {
-      for (int row = 0; row < RowCount; row++)
+      for (int row = 0; row < _grid.RowCount; row++)
       {
-        for (int column = 0; column < ColumnCount; column++)
+        for (int column = 0; column < _grid.ColumnCount; column++)
         {
-          if (IsLiveCell(Grid[row, column]))
+          if (IsLiveCell(_grid.CellGrid[row, column]))
           {
             return false;
           }
@@ -51,16 +39,16 @@ namespace ConwaysGameOfLife
 
     }
 
-    public void PrintWorld(CellState[,] currentWorld)
+    public void PrintWorld(Grid cellGrid)
     {
-      int gridrow = Grid.GetLength(0);
-      int gridcol = Grid.GetLength(1);
+      int gridrow = _grid.CellGrid.GetLength(0);
+      int gridcol = _grid.CellGrid.GetLength(1);
 
       for (int i = 0; i < gridrow; i++)
       {
         for (int j = 0; j < gridcol; j++)
         {
-          Console.Write(currentWorld[i, j]);
+          Console.Write(cellGrid.CellGrid[i, j]);
         }
         Console.WriteLine();
       }
@@ -79,13 +67,13 @@ namespace ConwaysGameOfLife
     // does it need gridcopy?
     public List<Coordinates> GetNeighbours(int row, int column)
     {
-      var leftNeighbour = column == 0 ? (Grid.GetLength(1) - 1) : (column - 1);
+      var leftNeighbour = column == 0 ? (_grid.CellGrid.GetLength(1) - 1) : (column - 1);
 
-      var rightNeighbour = column == (ColumnCount - 1) ? (0) : (column + 1);
+      var rightNeighbour = column == (_grid.ColumnCount - 1) ? (0) : (column + 1);
 
-      var upNeighbour = row == 0 ? (Grid.GetLength(0) - 1) : (row - 1);
+      var upNeighbour = row == 0 ? (_grid.CellGrid.GetLength(0) - 1) : (row - 1);
 
-      var downNeighbour = row == (RowCount - 1) ? (0) : (row + 1);
+      var downNeighbour = row == (_grid.RowCount - 1) ? (0) : (row + 1);
 
       var neighbourList = new List<Coordinates>();
 
@@ -114,28 +102,28 @@ namespace ConwaysGameOfLife
       return count;
     }
 
-    private int RowCount => Grid.GetLength(0);
-    private int ColumnCount => Grid.GetLength(1);
+    // private int RowCount => _grid.CellGrid.GetLength(0);
+    // private int ColumnCount => _grid.CellGrid.GetLength(1);
 
     private void Die(int row, int column)
     {
-      Grid[row, column] = CellState.Dead;
+      _grid.CellGrid[row, column] = CellState.Dead;
     }
 
     private void Live(int row, int column)
     {
-      Grid[row, column] = CellState.Alive;
+      _grid.CellGrid[row, column] = CellState.Alive;
     }
 
     public void Tick()
     {
 
 
-      CellState[,] gridCopy = Grid.Clone() as CellState[,];
+      CellState[,] gridCopy = _grid.CellGrid.Clone() as CellState[,];
 
-      for (int row = 0; row < RowCount; row++)
+      for (int row = 0; row < _grid.RowCount; row++)
       {
-        for (int column = 0; column < ColumnCount; column++)
+        for (int column = 0; column < _grid.ColumnCount; column++)
         {
 
           var neighboursList = GetNeighbours(row, column);

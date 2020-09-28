@@ -14,10 +14,10 @@ namespace ConwaysGameOfLife
     }
 // should coordinates be a data structure? Should I remove 'behaviour'
 
-    public static List<Coordinates> DigestCoordinates(string coordString)
+    public static List<Coordinates> DigestCoordinates(string coordinatesString)
     {
       var coordinatesList = new List<Coordinates>();
-      var coordinates = coordString.Split(" ");
+      var coordinates = coordinatesString.Split(" ");
       foreach (string coord in coordinates)
       {
         var rowTryParse = int.TryParse(coord[0].ToString(), out int row);

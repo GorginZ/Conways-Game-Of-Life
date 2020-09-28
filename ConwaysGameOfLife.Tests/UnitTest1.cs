@@ -13,7 +13,7 @@ namespace ConwaysGameOfLife.Tests
     {
       var game = new World(5, 10);
 
-      var grid = game.Grid;
+      var grid = game.Grid.CellGrid;
 
       var gridRows = grid.GetLength(0);
       var gridCols = grid.GetLength(1);
@@ -76,11 +76,11 @@ namespace ConwaysGameOfLife.Tests
       world.Populate(coordinateList);
 
 
-      var gridCopy = world.Grid.Clone() as CellState[,];
+      var gridCopy = world._grid.Clone() as CellState[,];
 
       world.Tick();
 
-      Assert.NotEqual(gridCopy, world.Grid);
+      Assert.NotEqual(gridCopy, world._grid);
     }
 
     [Fact]
@@ -93,7 +93,7 @@ namespace ConwaysGameOfLife.Tests
       world.Populate(coordinateList);
 
       var neighboursList = world.GetNeighbours(4, 5);
-      var numberOfLiveNeighbours = world.LiveNeighbourCount(world.Grid, neighboursList);
+      var numberOfLiveNeighbours = world.LiveNeighbourCount(world._grid, neighboursList);
 
       Assert.Equal(2, numberOfLiveNeighbours);
     }
@@ -108,7 +108,7 @@ namespace ConwaysGameOfLife.Tests
       world.Populate(coordinateList);
 
       world.Tick();
-      Assert.True(world.IsLiveCell(world.Grid[1, 6]));
+      Assert.True(world.IsLiveCell(world._grid[1, 6]));
     }
 
     [Fact]
@@ -121,7 +121,7 @@ namespace ConwaysGameOfLife.Tests
       world.Populate(coordinateList);
 
       world.Tick();
-      Assert.True(world.IsLiveCell(world.Grid[1, 6]));
+      Assert.True(world.IsLiveCell(world._grid[1, 6]));
     }
 
 
@@ -134,11 +134,11 @@ namespace ConwaysGameOfLife.Tests
       world.Populate(coordinateList);
 
 
-      Assert.True(world.IsLiveCell(world.Grid[4, 4]));
+      Assert.True(world.IsLiveCell(world._grid[4, 4]));
 
       world.Tick();
 
-      Assert.False(world.IsLiveCell(world.Grid[4, 4]));
+      Assert.False(world.IsLiveCell(world._grid[4, 4]));
     }
 
     [Fact]
@@ -150,11 +150,11 @@ namespace ConwaysGameOfLife.Tests
       world.Populate(coordinateList);
 
 
-      Assert.True(world.IsLiveCell(world.Grid[4, 4]));
+      Assert.True(world.IsLiveCell(world._grid[4, 4]));
 
       world.Tick();
 
-      Assert.False(world.IsLiveCell(world.Grid[4, 4]));
+      Assert.False(world.IsLiveCell(world._grid[4, 4]));
 
     }
 
@@ -169,7 +169,7 @@ namespace ConwaysGameOfLife.Tests
 
       world.Tick();
 
-      Assert.True(world.IsLiveCell(world.Grid[5, 6]));
+      Assert.True(world.IsLiveCell(world._grid[5, 6]));
 
     }
     [Fact]
