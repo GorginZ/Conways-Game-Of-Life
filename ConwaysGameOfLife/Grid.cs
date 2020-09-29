@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 
+
 namespace ConwaysGameOfLife
 {
   public class Grid<TItemType>
   {
-    private readonly TItemType[,] _cellGrid;
+    public readonly TItemType[,] _cellGrid;
 
     public Grid(int rowDimension, int columnDimension)
     {
@@ -37,9 +38,28 @@ namespace ConwaysGameOfLife
         }
       }
     }
-    public T Clone<T>(T what) where T: ICloneable
-{
-   return (T) what.Clone();
-}
+
+    public Grid<TItemType> CloneGrid()
+    {
+
+      // CellState[,] gridCopy = _grid.Clone(_grid) as CellState[,];
+
+      var CloneGrid = _cellGrid.Clone() as Grid<TItemType>;
+      return CloneGrid;
+    }
+
+    // public Grid<TItemType> CloneGrid(Grid<TItemType>[,] grid)
+    // {
+    //   var clone = new Grid<TItemType>(grid.GetLength(0), grid.GetLength(1));
+
+    //   for (int i = 0; i < grid.GetLength(0); i++)
+    //   {
+    //     for (int j = 0; j < grid.GetLength(1); j++)
+    //     {
+    //       clone._cellGrid[i,j] = grid[i,j];
+    //     }
+    //   }
+    //   return clone;
+    // }
   }
 }

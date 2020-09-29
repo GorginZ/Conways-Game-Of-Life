@@ -44,7 +44,7 @@ namespace ConwaysGameOfLife
       }
     }
 
-       public void PopulateGrid(List<Coordinates> CoordinatesList)
+    public void PopulateGrid(List<Coordinates> CoordinatesList)
     {
       _grid.SetMany(CoordinatesList, CellState.Alive);
     }
@@ -83,7 +83,7 @@ namespace ConwaysGameOfLife
 
       return neighbourList;
     }
-    public int LiveNeighbourCount(CellState[,] gridCopy, List<Coordinates> neighbourList)
+    public int LiveNeighbourCount(Grid<CellState> gridCopy, List<Coordinates> neighbourList)
     {
       int count = 0;
 
@@ -114,7 +114,10 @@ namespace ConwaysGameOfLife
     {
 
       //generalized class. needs a clone()
-      CellState[,] gridCopy = _grid.Clone() as CellState[,];
+      // CellState[,] gridCopy = _grid.Clone(_grid) as CellState[,];
+
+      Grid<CellState> gridCopy = _grid.CloneGrid();
+
 
       for (int row = 0; row < _grid.RowCount; row++)
       {
