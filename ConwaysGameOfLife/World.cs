@@ -13,7 +13,9 @@ namespace ConwaysGameOfLife
 
     public Grid<CellState> GetGrid()
     {
-      return _grid;
+      Grid<CellState> gridCopy = _grid.ShallowCopy();
+      return gridCopy;
+      // return _grid;
     }
 
     public bool IsDeadWorld()
@@ -34,9 +36,9 @@ namespace ConwaysGameOfLife
 
     public void PrintWorld(Grid<CellState> grid)
     {
-      for (int i = 0; i < _grid.RowCount; i++)
+      for (int i = 0; i < grid.RowCount; i++)
       {
-        for (int j = 0; j < _grid.ColumnCount; j++)
+        for (int j = 0; j < grid.ColumnCount; j++)
         {
           Console.Write(grid[i, j]);
         }
@@ -46,7 +48,7 @@ namespace ConwaysGameOfLife
 
     public void PopulateGrid(List<Coordinates> CoordinatesList)
     {
-      _grid.SetMany(CoordinatesList, CellState.Alive);
+      this._grid.SetMany(CoordinatesList, CellState.Alive);
     }
 
 
@@ -116,7 +118,9 @@ namespace ConwaysGameOfLife
       //generalized class. needs a clone()
       // CellState[,] gridCopy = _grid.Clone(_grid) as CellState[,];
 
-      Grid<CellState> gridCopy = _grid.CloneGrid();
+      Grid<CellState> gridCopy = _grid.ShallowCopy();
+
+
 
 
       for (int row = 0; row < _grid.RowCount; row++)
