@@ -21,7 +21,7 @@ namespace ConwaysGameOfLife
 
       var world = new World(rows, cols);
 
-      world.PrintWorld(world.GetGrid());
+      world.PrintWorld();
 
       Console.WriteLine("innoculate world with some live cells");
       Console.WriteLine("input your coordinates in the following format: 0,0 0,1 0,2 4,4 2,2 ");
@@ -31,7 +31,7 @@ namespace ConwaysGameOfLife
   
 
       Console.Clear();
-      world.PrintWorld(world.GetGrid());
+      world.PrintWorld();
 
     while (1 < 100)
     { 
@@ -42,7 +42,7 @@ namespace ConwaysGameOfLife
         {
           Console.Clear();
           world.Tick();
-          world.PrintWorld(world.GetGrid());
+          world.PrintWorld();
         }
     }
      

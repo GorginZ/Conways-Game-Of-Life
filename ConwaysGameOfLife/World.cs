@@ -33,14 +33,14 @@ namespace ConwaysGameOfLife
       return true;
 
     }
-
-    public void PrintWorld(Grid<CellState> grid)
+    // Grid<CellState> grid
+    public void PrintWorld()
     {
-      for (int i = 0; i < grid.RowCount; i++)
+      for (int i = 0; i < _grid.RowCount; i++)
       {
-        for (int j = 0; j < grid.ColumnCount; j++)
+        for (int j = 0; j < _grid.ColumnCount; j++)
         {
-          Console.Write(grid[i, j]);
+          Console.Write(_grid[i, j]);
         }
         Console.WriteLine();
       }
