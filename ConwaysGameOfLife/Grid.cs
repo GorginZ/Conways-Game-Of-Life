@@ -46,10 +46,10 @@ namespace ConwaysGameOfLife
 //       return CloneGrid;
 //     }
 
-     public Grid<TItemType> ShallowCopy()
-    {
-       return (Grid<TItemType>) this.MemberwiseClone();
-    }
+    //  public Grid<TItemType> ShallowCopy()
+    // {
+    //    return (Grid<TItemType>) this.MemberwiseClone();
+    // }
 
 
   

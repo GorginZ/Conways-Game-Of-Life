@@ -11,11 +11,12 @@ namespace ConwaysGameOfLife
       _grid = new Grid<CellState>(rowDimension, columnDimension);
     }
 
+// shallow copy may be obscuring some test results.
     public Grid<CellState> GetGrid()
     {
-      Grid<CellState> gridCopy = _grid.ShallowCopy();
-      return gridCopy;
-      // return _grid;
+      // Grid<CellState> gridCopy = _grid.ShallowCopy();
+      // return gridCopy;
+      return _grid;
     }
 
     public bool IsDeadWorld()
@@ -142,10 +143,6 @@ namespace ConwaysGameOfLife
       _grid.SetMany(CoordinatesOfCellsToDie, CellState.Dead);
 
     }
-    // public void ActualTick(List<Coordinates> CoordinatesOfCellsToAlive, List<Coordinates> CoordinatesOfCellsToDie)
-    // {
-    //   _grid.SetMany(CoordinatesOfCellsToAlive, CellState.Alive);
-    //   _grid.SetMany(CoordinatesOfCellsToDie, CellState.Dead);
-    // }
+
   }
 }

@@ -82,6 +82,7 @@ namespace ConwaysGameOfLife.Tests
 
       world.Tick();
       var gridAfter = world.GetGrid();
+      //problems with this test again regarding references/ getGrid
       Assert.NotEqual(gridBefore, world.GetGrid());
     }
 
