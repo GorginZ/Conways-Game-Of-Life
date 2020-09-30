@@ -46,6 +46,7 @@ namespace ConwaysGameOfLife
       }
     }
 
+    //revise if populategrid necessary for DRY purposes
     public void PopulateGrid(List<Coordinates> CoordinatesList)
     {
       this._grid.SetMany(CoordinatesList, CellState.Alive);
@@ -102,14 +103,26 @@ namespace ConwaysGameOfLife
     // private int RowCount => _grid.CellGrid.GetLength(0);
     // private int ColumnCount => _grid.CellGrid.GetLength(1);
 
-    private void Die(int row, int column)
+    // private void Die(int row, int column)
+    // {
+    //   _grid[row, column] = CellState.Dead;
+    // }
+
+    // private void Live(int row, int column)
+    // {
+    //   _grid[row, column] = CellState.Alive;
+
+    // }
+
+    private void MakeDead(List<Coordinates> CoordinatesList)
     {
-      _grid[row, column] = CellState.Dead;
+      this._grid.SetMany(CoordinatesList, CellState.Dead);
     }
 
-    private void Live(int row, int column)
+    private void MakeLive(List<Coordinates> CoordinatesList)
     {
-      _grid[row, column] = CellState.Alive;
+      this._grid.SetMany(CoordinatesList, CellState.Alive);
+
     }
 
     public void Tick()
@@ -120,7 +133,8 @@ namespace ConwaysGameOfLife
 
       Grid<CellState> gridCopy = _grid.ShallowCopy();
 
-
+      var CoordinatesOfCellsToDie = new List<Coordinates>();
+      var CoordinatesOfCellsToAlive = new List<Coordinates>();
 
 
       for (int row = 0; row < _grid.RowCount; row++)
@@ -135,25 +149,32 @@ namespace ConwaysGameOfLife
           // Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
           if (IsLiveCell(gridCopy[row, column]) && numberOfLiveNeighbours < 2)
           {
-            Die(row, column);
+            CoordinatesOfCellsToDie.Add(new Coordinates(row, column));
+            // Die(row, column);
           }
 
           // Any live cell with more than three live neighbours dies, as if by overcrowding.
           if (IsLiveCell(gridCopy[row, column]) && numberOfLiveNeighbours > 3)
           {
-            Die(row, column);
+            CoordinatesOfCellsToDie.Add(new Coordinates(row, column));
+            // Die(row, column);
           }
 
           // Any live cell with two or three live neighbours lives on to the next generation.
           if (IsLiveCell(gridCopy[row, column]) && (numberOfLiveNeighbours.Equals(3) || numberOfLiveNeighbours.Equals(2)))
           {
-            Live(row, column);
+            CoordinatesOfCellsToAlive.Add(new Coordinates(row, column));
+
+            // Live(row, column);
           }
           // Any dead cell with exactly three live neighbours becomes a live cell.
           if (!IsLiveCell(gridCopy[row, column]) && numberOfLiveNeighbours.Equals(3))
           {
-            Live(row, column);
+            CoordinatesOfCellsToAlive.Add(new Coordinates(row, column));
+            // Live(row, column);
           }
+          _grid.SetMany(CoordinatesOfCellsToAlive, CellState.Alive);
+          _grid.SetMany(CoordinatesOfCellsToDie, CellState.Dead);
         }
       }
 
