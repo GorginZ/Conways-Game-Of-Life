@@ -142,7 +142,7 @@ namespace ConwaysGameOfLife.Tests
 
       var updatedCellGrid = world.GetGrid();
 
-      Assert.False(world.IsLiveCell(updatedCellGrid[4,4]));
+      Assert.False(world.IsLiveCell(updatedCellGrid[4, 4]));
     }
 
     [Fact]
@@ -172,8 +172,9 @@ namespace ConwaysGameOfLife.Tests
 
 
       world.Tick();
+      var grid = world.GetGrid();
 
-      Assert.True(world.IsLiveCell(world.GetGrid()[5, 6]));
+      Assert.True(world.IsLiveCell(grid[5, 6]));
 
     }
     [Fact]
@@ -185,7 +186,7 @@ namespace ConwaysGameOfLife.Tests
       world.PopulateGrid(coordinateList);
       var neighboursList = world.GetNeighbours(0, 1);
 
-      Assert.Contains(new Coordinates(9,1), neighboursList);
+      Assert.Contains(new Coordinates(9, 1), neighboursList);
 
     }
 
@@ -198,7 +199,7 @@ namespace ConwaysGameOfLife.Tests
       world.PopulateGrid(coordinateList);
       var neighboursList = world.GetNeighbours(1, 0);
 
-      Assert.Contains(new Coordinates (1,9), neighboursList);
+      Assert.Contains(new Coordinates(1, 9), neighboursList);
     }
 
 

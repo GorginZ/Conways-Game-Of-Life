@@ -114,16 +114,16 @@ namespace ConwaysGameOfLife
 
     // }
 
-    private void MakeDead(List<Coordinates> CoordinatesList)
-    {
-      this._grid.SetMany(CoordinatesList, CellState.Dead);
-    }
+    // private void MakeDead(List<Coordinates> CoordinatesList)
+    // {
+    //   this._grid.SetMany(CoordinatesList, CellState.Dead);
+    // }
 
-    private void MakeLive(List<Coordinates> CoordinatesList)
-    {
-      this._grid.SetMany(CoordinatesList, CellState.Alive);
+    // private void MakeLive(List<Coordinates> CoordinatesList)
+    // {
+    //   this._grid.SetMany(CoordinatesList, CellState.Alive);
 
-    }
+    // }
 
     public void Tick()
     {
@@ -173,13 +173,17 @@ namespace ConwaysGameOfLife
             CoordinatesOfCellsToAlive.Add(new Coordinates(row, column));
             // Live(row, column);
           }
-          _grid.SetMany(CoordinatesOfCellsToAlive, CellState.Alive);
-          _grid.SetMany(CoordinatesOfCellsToDie, CellState.Dead);
+
         }
       }
-
+      _grid.SetMany(CoordinatesOfCellsToAlive, CellState.Alive);
+      _grid.SetMany(CoordinatesOfCellsToDie, CellState.Dead);
 
     }
-
+    // public void ActualTick(List<Coordinates> CoordinatesOfCellsToAlive, List<Coordinates> CoordinatesOfCellsToDie)
+    // {
+    //   _grid.SetMany(CoordinatesOfCellsToAlive, CellState.Alive);
+    //   _grid.SetMany(CoordinatesOfCellsToDie, CellState.Dead);
+    // }
   }
 }
