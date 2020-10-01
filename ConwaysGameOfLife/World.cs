@@ -14,8 +14,6 @@ namespace ConwaysGameOfLife
 // shallow copy may be obscuring some test results.
     public Grid<CellState> GetGrid()
     {
-      // Grid<CellState> gridCopy = _grid.ShallowCopy();
-      // return gridCopy;
       return _grid;
     }
 
@@ -100,10 +98,13 @@ namespace ConwaysGameOfLife
       return count;
     }
 
+// public void CellsToMakeAliveOnTick()
+// {
 
+// }
     public void Tick()
     {
-      var CoordinatesOfCellsToDie = new List<Coordinates>();
+      // var CoordinatesOfCellsToDie = new List<Coordinates>();
       var CoordinatesOfCellsToAlive = new List<Coordinates>();
 
       for (int row = 0; row < _grid.RowCount; row++)
@@ -115,16 +116,18 @@ namespace ConwaysGameOfLife
           var numberOfLiveNeighbours = LiveNeighbourCount(_grid, neighboursList);
 
           // Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
-          if (IsLiveCell(_grid[row, column]) && numberOfLiveNeighbours < 2)
-          {
-            CoordinatesOfCellsToDie.Add(new Coordinates(row, column));
-          }
 
-          // Any live cell with more than three live neighbours dies, as if by overcrowding.
-          if (IsLiveCell(_grid[row, column]) && numberOfLiveNeighbours > 3)
-          {
-            CoordinatesOfCellsToDie.Add(new Coordinates(row, column));
-          }
+          // if (IsLiveCell(_grid[row, column]) && numberOfLiveNeighbours < 2)
+          // {
+          //   CoordinatesOfCellsToDie.Add(new Coordinates(row, column));
+          // }
+
+          // // Any live cell with more than three live neighbours dies, as if by overcrowding.
+
+          // if (IsLiveCell(_grid[row, column]) && numberOfLiveNeighbours > 3)
+          // {
+          //   CoordinatesOfCellsToDie.Add(new Coordinates(row, column));
+          // }
 
           // Any live cell with two or three live neighbours lives on to the next generation.
           if (IsLiveCell(_grid[row, column]) && (numberOfLiveNeighbours.Equals(3) || numberOfLiveNeighbours.Equals(2)))
@@ -139,8 +142,10 @@ namespace ConwaysGameOfLife
 
         }
       }
+      _grid = new Grid<CellState>(_grid.RowCount, _grid.ColumnCount);
+
       _grid.SetMany(CoordinatesOfCellsToAlive, CellState.Alive);
-      _grid.SetMany(CoordinatesOfCellsToDie, CellState.Dead);
+      // _grid.SetMany(CoordinatesOfCellsToDie, CellState.Dead);
 
     }
 
