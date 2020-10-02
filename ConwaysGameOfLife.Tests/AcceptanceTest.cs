@@ -13,7 +13,6 @@ namespace ConwaysGameOfLife.Tests
 
       var coordinateList = Coordinates.DigestCoordinates(coords);
       world.PopulateGrid(coordinateList);
-      world.SetCellsOfInterest(coordinateList);
 
       Assert.True(world.IsLiveCell(world.GetGrid()[3, 3]));
       Assert.True(world.IsLiveCell(world.GetGrid()[4, 3]));

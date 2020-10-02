@@ -5,7 +5,6 @@ namespace ConwaysGameOfLife
   public class World
   {
     private Grid<CellState> _grid;
-    private List<Coordinates> _listOfCellsWithPotantialChangeOfState = new List<Coordinates>();
 
     public World(int rowDimension, int columnDimension)
     {
@@ -15,11 +14,6 @@ namespace ConwaysGameOfLife
     public Grid<CellState> GetGrid()
     {
       return _grid;
-    }
-
-    public List<Coordinates> GetCurrentCellsOfInterest()
-    {
-      return _listOfCellsWithPotantialChangeOfState;
     }
 
     public bool IsDeadWorld()
@@ -49,19 +43,9 @@ namespace ConwaysGameOfLife
       }
     }
 
-    public void PopulateGrid(List<Coordinates> CoordinatesToPopulateList)
+    public void PopulateGrid(List<Coordinates> CoordinatesList)
     {
-      this._grid.SetMany(CoordinatesToPopulateList, CellState.Alive);
-    }
-
-    public void SetCellsOfInterest(List<Coordinates> cellsThatAreAlive)
-    {
-      _listOfCellsWithPotantialChangeOfState.AddRange(cellsThatAreAlive);
-      foreach (Coordinates coordinate in cellsThatAreAlive)
-      {
-        var neighboursList = GetNeighbours(coordinate.Row, coordinate.Column);
-        _listOfCellsWithPotantialChangeOfState.AddRange(neighboursList);
-      }
+      this._grid.SetMany(CoordinatesList, CellState.Alive);
     }
 
 
@@ -115,44 +99,35 @@ namespace ConwaysGameOfLife
 
     private List<Coordinates> CellsToMakeAliveOnTick()
     {
-
       var CoordinatesOfCellsToAlive = new List<Coordinates>();
 
-      // for (int row = 0; row < _grid.RowCount; row++)
-      // {
-      //   for (int column = 0; column < _grid.ColumnCount; column++)
-      //   {
-
-      foreach (Coordinates coordinate in _listOfCellsWithPotantialChangeOfState)
+      for (int row = 0; row < _grid.RowCount; row++)
       {
-
-        var neighboursList = GetNeighbours(coordinate.Row, coordinate.Column);
-        var numberOfLiveNeighbours = LiveNeighbourCount(_grid, neighboursList);
-
-        // Any live cell with two or three live neighbours lives on to the next generation.
-        if (IsLiveCell(_grid[coordinate.Row, coordinate.Column]) && (numberOfLiveNeighbours.Equals(3) || numberOfLiveNeighbours.Equals(2)))
+        for (int column = 0; column < _grid.ColumnCount; column++)
         {
-          CoordinatesOfCellsToAlive.Add(new Coordinates(coordinate.Row, coordinate.Column));
-        }
-        // Any dead cell with exactly three live neighbours becomes a live cell.
-        if (!IsLiveCell(_grid[coordinate.Row, coordinate.Column]) && numberOfLiveNeighbours.Equals(3))
-        {
-          CoordinatesOfCellsToAlive.Add(new Coordinates(coordinate.Row, coordinate.Column));
+
+          var neighboursList = GetNeighbours(row, column);
+          var numberOfLiveNeighbours = LiveNeighbourCount(_grid, neighboursList);
+
+          // Any live cell with two or three live neighbours lives on to the next generation.
+          if (IsLiveCell(_grid[row, column]) && (numberOfLiveNeighbours.Equals(3) || numberOfLiveNeighbours.Equals(2)))
+          {
+            CoordinatesOfCellsToAlive.Add(new Coordinates(row, column));
+          }
+          // Any dead cell with exactly three live neighbours becomes a live cell.
+          if (!IsLiveCell(_grid[row, column]) && numberOfLiveNeighbours.Equals(3))
+          {
+            CoordinatesOfCellsToAlive.Add(new Coordinates(row, column));
+          }
         }
       }
-
-      //   }
-      // }
       return CoordinatesOfCellsToAlive;
     }
     public void Tick()
     {
       var ListOfCoordinatesToMakeAlive = CellsToMakeAliveOnTick();
-      //NOTE what about accidental lingering of coords? maintain previos live cells but make sure old cells of interest are cleared out otherwise will just accumilate
-      SetCellsOfInterest(ListOfCoordinatesToMakeAlive);
 
       _grid = new Grid<CellState>(_grid.RowCount, _grid.ColumnCount);
-      //hold onto this value, cells that are alive.can look at these coordinates next time and their neighbours become of interest.
 
       _grid.SetMany(ListOfCoordinatesToMakeAlive, CellState.Alive);
 

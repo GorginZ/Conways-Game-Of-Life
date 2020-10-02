@@ -39,6 +39,19 @@ namespace ConwaysGameOfLife
       }
     }
 
+// //dud returns null
+//     public Grid<TItemType> CloneGrid()
+//     {
+//       var CloneGrid = _cellGrid.Clone() as Grid<TItemType>;
+//       return CloneGrid;
+//     }
+
+    //  public Grid<TItemType> ShallowCopy()
+    // {
+    //    return (Grid<TItemType>) this.MemberwiseClone();
+    // }
+
+
   
   }
 }
