@@ -12,7 +12,6 @@ namespace ConwaysGameOfLife
       _grid = new Grid<CellState>(rowDimension, columnDimension);
     }
 
-    // shallow copy may be obscuring some test results.
     public Grid<CellState> GetGrid()
     {
       return _grid;
