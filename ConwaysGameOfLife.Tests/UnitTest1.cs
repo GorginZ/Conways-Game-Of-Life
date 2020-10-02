@@ -213,7 +213,30 @@ namespace ConwaysGameOfLife.Tests
 
       Assert.Contains(new Coordinates(1, 9), neighboursList);
     }
+    [Fact]
+    static void Cells_Of_Interest_Count_Should_Be_Current()
+    {
+      var world = new World(10, 10);
+      var coords = "0,0 1,0 2,0";
 
+      var coordinateList = Coordinates.DigestCoordinates(coords);
+      world.PopulateGrid(coordinateList);
+      world.SetCellsOfInterest(coordinateList);
+      int actualCount = world.GetCurrentCellsOfInterest().Count;
+
+      Assert.Equal(27, actualCount);
+
+      world.Tick();
+      int secondTickActualCount = world.GetCurrentCellsOfInterest().Count;
+
+      Assert.Equal(27, secondTickActualCount);
+
+      world.Tick();
+      int thirdTickActualCount = world.GetCurrentCellsOfInterest().Count;
+
+      Assert.Equal(27, thirdTickActualCount);
+
+    }
 
   }
 }

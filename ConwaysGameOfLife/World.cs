@@ -5,7 +5,7 @@ namespace ConwaysGameOfLife
   public class World
   {
     private Grid<CellState> _grid;
-    private List<Coordinates> _cellsOfInterest = new List<Coordinates>();
+    private List<Coordinates> _listOfCellsWithPotantialChangeOfState = new List<Coordinates>();
 
     public World(int rowDimension, int columnDimension)
     {
@@ -15,6 +15,11 @@ namespace ConwaysGameOfLife
     public Grid<CellState> GetGrid()
     {
       return _grid;
+    }
+
+    public List<Coordinates> GetCurrentCellsOfInterest()
+    {
+      return _listOfCellsWithPotantialChangeOfState;
     }
 
     public bool IsDeadWorld()
@@ -51,10 +56,11 @@ namespace ConwaysGameOfLife
 
     public void SetCellsOfInterest(List<Coordinates> cellsThatAreAlive)
     {
+      _listOfCellsWithPotantialChangeOfState.AddRange(cellsThatAreAlive);
       foreach (Coordinates coordinate in cellsThatAreAlive)
       {
         var neighboursList = GetNeighbours(coordinate.Row, coordinate.Column);
-        _cellsOfInterest.AddRange(neighboursList);
+        _listOfCellsWithPotantialChangeOfState.AddRange(neighboursList);
       }
     }
 
@@ -109,7 +115,7 @@ namespace ConwaysGameOfLife
 
     private List<Coordinates> CellsToMakeAliveOnTick()
     {
-    
+
       var CoordinatesOfCellsToAlive = new List<Coordinates>();
 
       // for (int row = 0; row < _grid.RowCount; row++)
@@ -117,7 +123,7 @@ namespace ConwaysGameOfLife
       //   for (int column = 0; column < _grid.ColumnCount; column++)
       //   {
 
-      foreach (Coordinates coordinate in _cellsOfInterest)
+      foreach (Coordinates coordinate in _listOfCellsWithPotantialChangeOfState)
       {
 
         var neighboursList = GetNeighbours(coordinate.Row, coordinate.Column);
@@ -142,7 +148,7 @@ namespace ConwaysGameOfLife
     public void Tick()
     {
       var ListOfCoordinatesToMakeAlive = CellsToMakeAliveOnTick();
-
+      //NOTE what about accidental lingering of coords? maintain previos live cells but make sure old cells of interest are cleared out otherwise will just accumilate
       SetCellsOfInterest(ListOfCoordinatesToMakeAlive);
 
       _grid = new Grid<CellState>(_grid.RowCount, _grid.ColumnCount);
