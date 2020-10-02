@@ -5,6 +5,7 @@ namespace ConwaysGameOfLife
   public class World
   {
     private Grid<CellState> _grid;
+    private List<Coordinates> _cellsOfInterest = new List<Coordinates>();
 
     public World(int rowDimension, int columnDimension)
     {
@@ -44,9 +45,18 @@ namespace ConwaysGameOfLife
       }
     }
 
-    public void PopulateGrid(List<Coordinates> CoordinatesList)
+    public void PopulateGrid(List<Coordinates> CoordinatesToPopulateList)
     {
-      this._grid.SetMany(CoordinatesList, CellState.Alive);
+      this._grid.SetMany(CoordinatesToPopulateList, CellState.Alive);
+    }
+
+    public void SetCellsOfInterest(List<Coordinates> cellsThatAreAlive)
+    {
+      foreach (Coordinates coordinate in cellsThatAreAlive)
+      {
+        var neighboursList = GetNeighbours(coordinate.Row, coordinate.Column);
+        _cellsOfInterest.AddRange(neighboursList);
+      }
     }
 
 
@@ -100,33 +110,41 @@ namespace ConwaysGameOfLife
 
     private List<Coordinates> CellsToMakeAliveOnTick()
     {
+    
       var CoordinatesOfCellsToAlive = new List<Coordinates>();
 
-      for (int row = 0; row < _grid.RowCount; row++)
+      // for (int row = 0; row < _grid.RowCount; row++)
+      // {
+      //   for (int column = 0; column < _grid.ColumnCount; column++)
+      //   {
+
+      foreach (Coordinates coordinate in _cellsOfInterest)
       {
-        for (int column = 0; column < _grid.ColumnCount; column++)
+
+        var neighboursList = GetNeighbours(coordinate.Row, coordinate.Column);
+        var numberOfLiveNeighbours = LiveNeighbourCount(_grid, neighboursList);
+
+        // Any live cell with two or three live neighbours lives on to the next generation.
+        if (IsLiveCell(_grid[coordinate.Row, coordinate.Column]) && (numberOfLiveNeighbours.Equals(3) || numberOfLiveNeighbours.Equals(2)))
         {
-
-          var neighboursList = GetNeighbours(row, column);
-          var numberOfLiveNeighbours = LiveNeighbourCount(_grid, neighboursList);
-
-          // Any live cell with two or three live neighbours lives on to the next generation.
-          if (IsLiveCell(_grid[row, column]) && (numberOfLiveNeighbours.Equals(3) || numberOfLiveNeighbours.Equals(2)))
-          {
-            CoordinatesOfCellsToAlive.Add(new Coordinates(row, column));
-          }
-          // Any dead cell with exactly three live neighbours becomes a live cell.
-          if (!IsLiveCell(_grid[row, column]) && numberOfLiveNeighbours.Equals(3))
-          {
-            CoordinatesOfCellsToAlive.Add(new Coordinates(row, column));
-          }
+          CoordinatesOfCellsToAlive.Add(new Coordinates(coordinate.Row, coordinate.Column));
+        }
+        // Any dead cell with exactly three live neighbours becomes a live cell.
+        if (!IsLiveCell(_grid[coordinate.Row, coordinate.Column]) && numberOfLiveNeighbours.Equals(3))
+        {
+          CoordinatesOfCellsToAlive.Add(new Coordinates(coordinate.Row, coordinate.Column));
         }
       }
+
+      //   }
+      // }
       return CoordinatesOfCellsToAlive;
     }
     public void Tick()
     {
       var ListOfCoordinatesToMakeAlive = CellsToMakeAliveOnTick();
+
+      SetCellsOfInterest(ListOfCoordinatesToMakeAlive);
 
       _grid = new Grid<CellState>(_grid.RowCount, _grid.ColumnCount);
       //hold onto this value, cells that are alive.can look at these coordinates next time and their neighbours become of interest.

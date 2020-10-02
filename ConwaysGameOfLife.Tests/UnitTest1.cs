@@ -42,6 +42,7 @@ namespace ConwaysGameOfLife.Tests
       var coords = "0,0 4,4 4,5 4,9";
       var coordinateList = Coordinates.DigestCoordinates(coords);
       world.PopulateGrid(coordinateList);
+      world.SetCellsOfInterest(coordinateList);
 
 
       var result = world.IsDeadWorld();
@@ -58,6 +59,7 @@ namespace ConwaysGameOfLife.Tests
 
       var coordinateList = Coordinates.DigestCoordinates(coords);
       world.PopulateGrid(coordinateList);
+      world.SetCellsOfInterest(coordinateList);
 
       var result = world.IsDeadWorld();
 
@@ -74,6 +76,7 @@ namespace ConwaysGameOfLife.Tests
 
       var coordinateList = Coordinates.DigestCoordinates(coords);
       world.PopulateGrid(coordinateList);
+      world.SetCellsOfInterest(coordinateList);
 
 
       // var gridCopy = world.GetGrid().Clone() as CellState[,];
@@ -94,6 +97,7 @@ namespace ConwaysGameOfLife.Tests
 
       var coordinateList = Coordinates.DigestCoordinates(coords);
       world.PopulateGrid(coordinateList);
+      world.SetCellsOfInterest(coordinateList);
 
       var neighboursList = world.GetNeighbours(4, 5);
       var numberOfLiveNeighbours = world.LiveNeighbourCount(world.GetGrid(), neighboursList);
@@ -109,6 +113,7 @@ namespace ConwaysGameOfLife.Tests
 
       var coordinateList = Coordinates.DigestCoordinates(coords);
       world.PopulateGrid(coordinateList);
+      world.SetCellsOfInterest(coordinateList);
 
       world.Tick();
       Assert.True(world.IsLiveCell(world.GetGrid()[1, 6]));
@@ -122,6 +127,7 @@ namespace ConwaysGameOfLife.Tests
 
       var coordinateList = Coordinates.DigestCoordinates(coords);
       world.PopulateGrid(coordinateList);
+      world.SetCellsOfInterest(coordinateList);
 
       world.Tick();
       Assert.True(world.IsLiveCell(world.GetGrid()[1, 6]));
@@ -135,6 +141,7 @@ namespace ConwaysGameOfLife.Tests
       var coords = "4,4 4,5 4,6";
       var coordinateList = Coordinates.DigestCoordinates(coords);
       world.PopulateGrid(coordinateList);
+      world.SetCellsOfInterest(coordinateList);
 
 
       Assert.True(world.IsLiveCell(world.GetGrid()[4, 4]));
@@ -153,6 +160,7 @@ namespace ConwaysGameOfLife.Tests
       var coords = "4,4 4,5 4,6 5,3 5,4 5,5";
       var coordinateList = Coordinates.DigestCoordinates(coords);
       world.PopulateGrid(coordinateList);
+      world.SetCellsOfInterest(coordinateList);
 
 
       Assert.True(world.IsLiveCell(world.GetGrid()[4, 4]));
@@ -170,6 +178,7 @@ namespace ConwaysGameOfLife.Tests
       var coords = "4,4 4,5 4,6 5,3 5,4 5,5";
       var coordinateList = Coordinates.DigestCoordinates(coords);
       world.PopulateGrid(coordinateList);
+      world.SetCellsOfInterest(coordinateList);
 
 
       world.Tick();
@@ -185,6 +194,7 @@ namespace ConwaysGameOfLife.Tests
       var coords = "0,0 0,1 0,2";
       var coordinateList = Coordinates.DigestCoordinates(coords);
       world.PopulateGrid(coordinateList);
+      world.SetCellsOfInterest(coordinateList);
       var neighboursList = world.GetNeighbours(0, 1);
 
       Assert.Contains(new Coordinates(9, 1), neighboursList);
@@ -198,6 +208,7 @@ namespace ConwaysGameOfLife.Tests
       var coords = "0,0 1,0 2,0";
       var coordinateList = Coordinates.DigestCoordinates(coords);
       world.PopulateGrid(coordinateList);
+      world.SetCellsOfInterest(coordinateList);
       var neighboursList = world.GetNeighbours(1, 0);
 
       Assert.Contains(new Coordinates(1, 9), neighboursList);
