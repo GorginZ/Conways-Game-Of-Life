@@ -34,7 +34,7 @@ namespace ConwaysGameOfLife.Tests
 
 
 
-    //set up ?
+    //concerns abt this test. need to find better way to compare
     [Fact]
     public void OnTickShouldChange()
     {
@@ -114,7 +114,6 @@ namespace ConwaysGameOfLife.Tests
       var coordinatesToPopulateList = new List<Coordinates> { new Coordinates(4, 4), new Coordinates(4, 5), new Coordinates(4, 6), new Coordinates(5, 3), new Coordinates(5, 4), new Coordinates(5, 5) };
       world.PopulateGrid(coordinatesToPopulateList);
 
-
       Assert.True(world.IsLiveCell(world.GetGrid()[4, 4]));
 
       world.Tick();
@@ -141,8 +140,6 @@ namespace ConwaysGameOfLife.Tests
     static void Neighbours_Should_Wrap_Over_On_Y_Axis()
     {
       var world = new World(10, 10);
-      var cellsThatWeWantToCheckWhereTheirNeighboursAre = new List<Coordinates> { new Coordinates(0, 0), new Coordinates(0, 1), new Coordinates(0, 2) };
-      world.PopulateGrid(cellsThatWeWantToCheckWhereTheirNeighboursAre);
 
       var neighboursList = world.GetNeighbours(0, 1);
 
@@ -154,9 +151,7 @@ namespace ConwaysGameOfLife.Tests
     static void Neighbours_Should_Wrap_Over_On_X_Axis()
     {
       var world = new World(10, 10);
-      var cellsThatWeWantToCheckWhereTheirNeighboursAre = new List<Coordinates> { new Coordinates(0, 0), new Coordinates(1, 0), new Coordinates(2, 0) };
-      world.PopulateGrid(cellsThatWeWantToCheckWhereTheirNeighboursAre);
-
+  
       var neighboursList = world.GetNeighbours(1, 0);
 
       Assert.Contains(new Coordinates(1, 9), neighboursList);
