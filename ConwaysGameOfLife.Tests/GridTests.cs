@@ -6,10 +6,12 @@ namespace ConwaysGameOfLife.Tests
   public class GridTests
   {
 
-   [Fact]
-    public void Can_Generate_Grid_Of_Value_Types()
+    [Fact]
+    public void Can_Generate_Grid_Of_A_Specified_Type()
     {
-   
+      var grid = new Grid<int>(5, 10);
+
+      Assert.IsType<int>(grid[0,0]);
     }
     [Fact]
     public void Should_Generate_Grid_With_Specified_Dimensions()
