@@ -13,6 +13,7 @@ namespace ConwaysGameOfLife.Tests
 
       Assert.IsType<int>(grid[0,0]);
     }
+    
     [Fact]
     public void Should_Generate_Grid_With_Specified_Dimensions()
     {

@@ -59,7 +59,7 @@ namespace ConwaysGameOfLife.Tests
       var coordinatesToPopulateList = new List<Coordinates> { new Coordinates(4, 4), new Coordinates(4, 5), new Coordinates(4, 6) };
       world.PopulateGrid(coordinatesToPopulateList);
 
-      var neighboursList = world.GetNeighbours(4, 5);
+      var neighboursList = world.GetCellsNeighbours(4, 5);
       var numberOfLiveNeighbours = world.LiveNeighbourCount(world.GetGrid(), neighboursList);
 
       Assert.Equal(2, numberOfLiveNeighbours);
@@ -141,7 +141,7 @@ namespace ConwaysGameOfLife.Tests
     {
       var world = new World(10, 10);
 
-      var neighboursList = world.GetNeighbours(0, 1);
+      var neighboursList = world.GetCellsNeighbours(0, 1);
 
       Assert.Contains(new Coordinates(9, 1), neighboursList);
 
@@ -152,7 +152,7 @@ namespace ConwaysGameOfLife.Tests
     {
       var world = new World(10, 10);
   
-      var neighboursList = world.GetNeighbours(1, 0);
+      var neighboursList = world.GetCellsNeighbours(1, 0);
 
       Assert.Contains(new Coordinates(1, 9), neighboursList);
     }

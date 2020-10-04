@@ -60,7 +60,7 @@ namespace ConwaysGameOfLife
     }
 
 
-    public List<Coordinates> GetNeighbours(int row, int column)
+    public List<Coordinates> GetCellsNeighbours(int row, int column)
     {
       var leftNeighbour = column == 0 ? (_grid.ColumnCount - 1) : (column - 1);
 
@@ -106,7 +106,7 @@ namespace ConwaysGameOfLife
         for (int column = 0; column < _grid.ColumnCount; column++)
         {
 
-          var neighboursList = GetNeighbours(row, column);
+          var neighboursList = GetCellsNeighbours(row, column);
           var numberOfLiveNeighbours = LiveNeighbourCount(_grid, neighboursList);
 
           // Any live cell with two or three live neighbours lives on to the next generation.
