@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ConwaysGameOfLife.Tests
 {
-  public class UnitTest1
+  public class WorldTests
   {
 
     [Fact]
@@ -15,14 +15,13 @@ namespace ConwaysGameOfLife.Tests
 
       var worldGrid = world.GetGrid();
 
-      var gridRows = worldGrid.RowCount;
-      var gridCols = worldGrid.ColumnCount;
+      // var expectedRows = 5;
+      // var expectedCols = 10;
+      //what's more readable, in this case the straight input
+      //without declaring variables -i feel, is clear
 
-      var expectedRows = 5;
-      var expectedCols = 10;
-
-      Assert.Equal(expectedRows, gridRows);
-      Assert.Equal(expectedCols, gridCols);
+      Assert.Equal(5, worldGrid.RowCount);
+      Assert.Equal(10, worldGrid.ColumnCount);
     }
 
     [Fact]
@@ -36,35 +35,21 @@ namespace ConwaysGameOfLife.Tests
     }
 
     [Fact]
-    public void Can_Populate_World()
+    public void Can_Populate_World_With_List_Of_Coordinates()
     {
       var world = new World(10, 10);
-      var coords = "0,0 4,4 4,5 4,9";
-      var coordinateList = Coordinates.DigestCoordinates(coords);
-      world.PopulateGrid(coordinateList);
 
+      Assert.True(world.IsDeadWorld());
 
-      var result = world.IsDeadWorld();
+      var coordinatesToPopulateList = new List<Coordinates> { new Coordinates(0, 0), new Coordinates(0, 1) };
 
-      Assert.False(result);
+      world.PopulateGrid(coordinatesToPopulateList);
 
+      Assert.False(world.IsDeadWorld());
     }
 
-    [Fact]
-    public void Will_Populate_And_Not_Break_If_Out_Of_Bounds_Coords_In_Input()
-    {
-      var world = new World(5, 5);
-      var coords = "4,4 4,5 4,9";
 
-      var coordinateList = Coordinates.DigestCoordinates(coords);
-      world.PopulateGrid(coordinateList);
-
-      var result = world.IsDeadWorld();
-
-      Assert.False(result);
-      //could also check to make sure only populates one cell, but mostly about it not crashing
-
-    }
+ 
 
     [Fact]
     public void OnTickShouldChange()
