@@ -9,23 +9,7 @@ namespace ConwaysGameOfLife.Tests
   {
 
     [Fact]
-    public void ShouldGenerateGridWithSpecifiedDimensions()
-    {
-      var world = new World(5, 10);
-
-      var worldGrid = world.GetGrid();
-
-      // var expectedRows = 5;
-      // var expectedCols = 10;
-      //what's more readable, in this case the straight input
-      //without declaring variables -i feel, is clear
-
-      Assert.Equal(5, worldGrid.RowCount);
-      Assert.Equal(10, worldGrid.ColumnCount);
-    }
-
-    [Fact]
-    public void CanCreateDeadWorld()
+    public void Can_Create_Dead_World()
     {
       var world = new World(10, 10);
 
@@ -49,8 +33,8 @@ namespace ConwaysGameOfLife.Tests
     }
 
 
- 
 
+    //set up ?
     [Fact]
     public void OnTickShouldChange()
     {
@@ -59,9 +43,6 @@ namespace ConwaysGameOfLife.Tests
 
       var coordinateList = Coordinates.DigestCoordinates(coords);
       world.PopulateGrid(coordinateList);
-
-
-      // var gridCopy = world.GetGrid().Clone() as CellState[,];
 
       var gridBefore = world.GetGrid();
 
@@ -72,13 +53,11 @@ namespace ConwaysGameOfLife.Tests
     }
 
     [Fact]
-    public void ShouldSayHowManyNeighboursAreAlive()
+    public void Should_Be_Able_To_Determine_Number_Of_Live_Neighbours()
     {
       var world = new World(10, 10);
-      var coords = "4,4 4,5 4,6";
-
-      var coordinateList = Coordinates.DigestCoordinates(coords);
-      world.PopulateGrid(coordinateList);
+      var coordinatesToPopulateList = new List<Coordinates> { new Coordinates(4, 4), new Coordinates(4, 5), new Coordinates(4, 6) };
+      world.PopulateGrid(coordinatesToPopulateList);
 
       var neighboursList = world.GetNeighbours(4, 5);
       var numberOfLiveNeighbours = world.LiveNeighbourCount(world.GetGrid(), neighboursList);
@@ -89,26 +68,25 @@ namespace ConwaysGameOfLife.Tests
     [Fact]
     public void Any_Live_Cell_With_Two_Live_Neighbours_Lives()
     {
-      var coords = "1,5 1,6, 1,7";
       var world = new World(10, 10);
+      var coordinatesToPopulateList = new List<Coordinates> { new Coordinates(1, 5), new Coordinates(1, 6), new Coordinates(1, 7) };
+      world.PopulateGrid(coordinatesToPopulateList);
 
-      var coordinateList = Coordinates.DigestCoordinates(coords);
-      world.PopulateGrid(coordinateList);
 
       world.Tick();
+
       Assert.True(world.IsLiveCell(world.GetGrid()[1, 6]));
     }
 
     [Fact]
     public void Any_Live_Cell_With_Three_Live_Neighbours_Lives()
     {
-      var coords = "1,5 1,6, 1,7 0,6";
       var world = new World(10, 10);
-
-      var coordinateList = Coordinates.DigestCoordinates(coords);
-      world.PopulateGrid(coordinateList);
+      var coordinatesToPopulateList = new List<Coordinates> { new Coordinates(1, 5), new Coordinates(1, 6), new Coordinates(1, 7), new Coordinates(0, 6) };
+      world.PopulateGrid(coordinatesToPopulateList);
 
       world.Tick();
+
       Assert.True(world.IsLiveCell(world.GetGrid()[1, 6]));
     }
 
@@ -117,10 +95,8 @@ namespace ConwaysGameOfLife.Tests
     public void Any_Live_Cell_With_Fewer_Than_Two_Live_Neighbours_Dies()
     {
       var world = new World(10, 10);
-      var coords = "4,4 4,5 4,6";
-      var coordinateList = Coordinates.DigestCoordinates(coords);
-      world.PopulateGrid(coordinateList);
-
+      var coordinatesToPopulateList = new List<Coordinates> { new Coordinates(4, 4), new Coordinates(4, 5), new Coordinates(4, 6) };
+      world.PopulateGrid(coordinatesToPopulateList);
 
       Assert.True(world.IsLiveCell(world.GetGrid()[4, 4]));
 
@@ -135,9 +111,8 @@ namespace ConwaysGameOfLife.Tests
     static void Any_Live_Cell_With_More_Than_Three_Live_Neighbours_Dies()
     {
       var world = new World(10, 10);
-      var coords = "4,4 4,5 4,6 5,3 5,4 5,5";
-      var coordinateList = Coordinates.DigestCoordinates(coords);
-      world.PopulateGrid(coordinateList);
+      var coordinatesToPopulateList = new List<Coordinates> { new Coordinates(4, 4), new Coordinates(4, 5), new Coordinates(4, 6), new Coordinates(5, 3), new Coordinates(5, 4), new Coordinates(5, 5) };
+      world.PopulateGrid(coordinatesToPopulateList);
 
 
       Assert.True(world.IsLiveCell(world.GetGrid()[4, 4]));
@@ -152,9 +127,8 @@ namespace ConwaysGameOfLife.Tests
     static void Any_Dead_Cell_With_Exactly_Three_Live_Neighbours_Becomes_Live()
     {
       var world = new World(10, 10);
-      var coords = "4,4 4,5 4,6 5,3 5,4 5,5";
-      var coordinateList = Coordinates.DigestCoordinates(coords);
-      world.PopulateGrid(coordinateList);
+      var coordinatesToPopulateList = new List<Coordinates> { new Coordinates(4, 4), new Coordinates(4, 5), new Coordinates(4, 6), new Coordinates(5, 3), new Coordinates(5, 4), new Coordinates(5, 5) };
+      world.PopulateGrid(coordinatesToPopulateList);
 
 
       world.Tick();
@@ -167,9 +141,9 @@ namespace ConwaysGameOfLife.Tests
     static void Neighbours_Should_Wrap_Over_On_Y_Axis()
     {
       var world = new World(10, 10);
-      var coords = "0,0 0,1 0,2";
-      var coordinateList = Coordinates.DigestCoordinates(coords);
-      world.PopulateGrid(coordinateList);
+      var cellsThatWeWantToCheckWhereTheirNeighboursAre = new List<Coordinates> { new Coordinates(0, 0), new Coordinates(0, 1), new Coordinates(0, 2) };
+      world.PopulateGrid(cellsThatWeWantToCheckWhereTheirNeighboursAre);
+
       var neighboursList = world.GetNeighbours(0, 1);
 
       Assert.Contains(new Coordinates(9, 1), neighboursList);
@@ -180,9 +154,9 @@ namespace ConwaysGameOfLife.Tests
     static void Neighbours_Should_Wrap_Over_On_X_Axis()
     {
       var world = new World(10, 10);
-      var coords = "0,0 1,0 2,0";
-      var coordinateList = Coordinates.DigestCoordinates(coords);
-      world.PopulateGrid(coordinateList);
+      var cellsThatWeWantToCheckWhereTheirNeighboursAre = new List<Coordinates> { new Coordinates(0, 0), new Coordinates(1, 0), new Coordinates(2, 0) };
+      world.PopulateGrid(cellsThatWeWantToCheckWhereTheirNeighboursAre);
+
       var neighboursList = world.GetNeighbours(1, 0);
 
       Assert.Contains(new Coordinates(1, 9), neighboursList);
