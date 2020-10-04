@@ -60,26 +60,17 @@ namespace ConwaysGameOfLife
     }
 
 
-    public List<Coordinates> GetCellsNeighbours(int row, int column)
+    public List<Coordinates> GetListOfCoordinatesForThisCellsNeighbours(int row, int column)
     {
       var leftNeighbour = column == 0 ? (_grid.ColumnCount - 1) : (column - 1);
-
       var rightNeighbour = column == (_grid.ColumnCount - 1) ? (0) : (column + 1);
-
       var upNeighbour = row == 0 ? (_grid.RowCount - 1) : (row - 1);
-
       var downNeighbour = row == (_grid.RowCount - 1) ? (0) : (row + 1);
 
-      var neighbourList = new List<Coordinates>();
-
-      neighbourList.Add(new Coordinates(row, rightNeighbour));
-      neighbourList.Add(new Coordinates(row, leftNeighbour));
-      neighbourList.Add(new Coordinates(upNeighbour, column));
-      neighbourList.Add(new Coordinates(downNeighbour, column));
-      neighbourList.Add(new Coordinates(upNeighbour, rightNeighbour));
-      neighbourList.Add(new Coordinates(upNeighbour, leftNeighbour));
-      neighbourList.Add(new Coordinates(downNeighbour, rightNeighbour));
-      neighbourList.Add(new Coordinates(downNeighbour, leftNeighbour));
+      var neighbourList = new List<Coordinates>
+      {
+        new Coordinates(row, rightNeighbour), new Coordinates(row, leftNeighbour), new Coordinates(upNeighbour, column), new Coordinates(downNeighbour, column), new Coordinates(upNeighbour, rightNeighbour), new Coordinates(upNeighbour, leftNeighbour), new Coordinates(downNeighbour, rightNeighbour), new Coordinates(downNeighbour, leftNeighbour)
+        };
 
       return neighbourList;
     }
@@ -105,8 +96,7 @@ namespace ConwaysGameOfLife
       {
         for (int column = 0; column < _grid.ColumnCount; column++)
         {
-
-          var neighboursList = GetCellsNeighbours(row, column);
+          var neighboursList = GetListOfCoordinatesForThisCellsNeighbours(row, column);
           var numberOfLiveNeighbours = LiveNeighbourCount(_grid, neighboursList);
 
           // Any live cell with two or three live neighbours lives on to the next generation.
@@ -119,6 +109,7 @@ namespace ConwaysGameOfLife
           {
             CoordinatesOfCellsToAlive.Add(new Coordinates(row, column));
           }
+
         }
       }
       return CoordinatesOfCellsToAlive;
