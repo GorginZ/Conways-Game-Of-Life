@@ -11,7 +11,7 @@ namespace ConwaysGameOfLife.Tests
       var coords = "3,3 4,3 5,3";
       var world = new World(10, 10);
 
-      var coordinateList = Coordinates.DigestCoordinates(coords);
+      var coordinateList = Coordinate.DigestCoordinates(coords);
       world.PopulateGrid(coordinateList);
 
       Assert.True(world.IsLiveCell(world.GetGrid()[3, 3]));

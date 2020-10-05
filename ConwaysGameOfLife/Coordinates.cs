@@ -2,21 +2,21 @@ using System.Collections.Generic;
 
 namespace ConwaysGameOfLife
 {
-  public struct Coordinates
+  public struct Coordinate
   {
     public int Row;
     public int Column;
 
-    public Coordinates(int row, int column)
+    public Coordinate(int row, int column)
     {
       Row = row;
       Column = column;
     }
 // should coordinates be a data structure? Should I remove 'behaviour'
 
-    public static List<Coordinates> DigestCoordinates(string coordinatesString)
+    public static List<Coordinate> DigestCoordinates(string coordinatesString)
     {
-      var coordinatesList = new List<Coordinates>();
+      var coordinatesList = new List<Coordinate>();
       var coordinates = coordinatesString.Split(" ");
       foreach (string coord in coordinates)
       {
@@ -25,7 +25,7 @@ namespace ConwaysGameOfLife
 
         if (rowTryParse && colTryParse)
         {
-          coordinatesList.Add(new Coordinates (row, column));
+          coordinatesList.Add(new Coordinate (row, column));
         }
       }
       return coordinatesList;
