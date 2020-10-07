@@ -31,16 +31,9 @@ namespace ConwaysGameOfLife
       return true;
 
     }
-    public void PrintWorld()
+    public string PrintWorld()
     {
-      for (int i = 0; i < _grid.RowCount; i++)
-      {
-        for (int j = 0; j < _grid.ColumnCount; j++)
-        {
-          Console.Write(_grid[i, j]);
-        }
-        Console.WriteLine();
-      }
+      return this._grid.SeeGrid();
     }
 
     public void PopulateGrid(List<Coordinate> CoordinatesList)

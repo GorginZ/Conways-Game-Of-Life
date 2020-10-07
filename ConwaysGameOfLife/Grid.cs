@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-
+using System.Text;
 
 namespace ConwaysGameOfLife
 {
@@ -37,6 +37,22 @@ namespace ConwaysGameOfLife
           this[coordinate] = value;
         }
       }
+    }
+
+      public String SeeGrid()
+    {
+      var seeSB = new StringBuilder();
+
+      for (int i = 0; i < this.RowCount; i++)
+      {
+        for (int j = 0; j < this.ColumnCount; j++)
+        {
+
+          seeSB.Append(this[i, j].ToString());
+        }
+        seeSB.Append("\n");
+      }
+      return seeSB.ToString();
     }
 
 
