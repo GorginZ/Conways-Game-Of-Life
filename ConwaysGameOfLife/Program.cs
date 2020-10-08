@@ -7,12 +7,12 @@ namespace ConwaysGameOfLife
     static void Main(string[] args)
     {
       var userInput = new UserInput();
-      var outPut = new OutPut();
+      var output = new Output();
 
-      Console.WriteLine(outPut.);
+      Console.Write(output.GetIntro());
       var inputRows = userInput.ReadInput();
 
-      Console.WriteLine("how many columns should be in this world?");
+      Console.Write(output.)
       var inputCols = userInput.ReadInput();
 
       var tryParseRows = int.TryParse(inputRows, out int rows);

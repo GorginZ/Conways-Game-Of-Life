@@ -6,11 +6,12 @@ namespace ConwaysGameOfLife
   public class UserInput : IRead
   {
     public string ReadConsole => Console.ReadLine();
-    
+
    public string ReadInput()
     {
       return ReadConsole;
     }
+
     public static List<Coordinate> DigestCoordinates(string coordinatesString)
     {
       var coordinatesList = new List<Coordinate>();
