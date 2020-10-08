@@ -6,32 +6,32 @@ namespace ConwaysGameOfLife
   {
     static void Main(string[] args)
     {
-      Console.WriteLine("Welcome to Life Game!");
-      Console.WriteLine("A new world has been made.");
+      var userInput = new UserInput();
+      var outPut = new OutPut();
 
-      Console.WriteLine("how many rows should be in this world?");
-      var inputRows = Console.ReadLine();
+      Console.WriteLine(outPut.);
+      var inputRows = userInput.ReadInput();
 
       Console.WriteLine("how many columns should be in this world?");
-      var inputCols = Console.ReadLine();
+      var inputCols = userInput.ReadInput();
 
       var tryParseRows = int.TryParse(inputRows, out int rows);
       var tryParseCols = int.TryParse(inputCols, out int cols);
 
-
       var world = new World(rows, cols);
 
       Console.Write(world.PrintWorld());
+
       Console.WriteLine("innoculate world with some live cells");
       Console.WriteLine("input your coordinates in the following format: 0,0 0,1 0,2 4,4 2,2 ");
 
-      var coords = Console.ReadLine();
-      var coordinateList = Coordinate.DigestCoordinates(coords);
+      var coordinateList = UserInput.DigestCoordinates(userInput.ReadInput());
       world.PopulateGrid(coordinateList);
 
 
       Console.Clear();
       Console.Write(world.PrintWorld());
+
 
       while (1 < 100)
       {
