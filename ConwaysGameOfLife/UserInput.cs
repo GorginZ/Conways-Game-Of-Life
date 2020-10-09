@@ -1,10 +1,21 @@
 using System;
+using System.Collections.Generic;
 
 namespace ConwaysGameOfLife
 {
-  public class UserInput
+  public class UserInput : IRead
   {
-    public string Read => Console.ReadLine();
+    public string ReadConsole => Console.ReadLine();
 
+
+   public string ReadInput()
+    {
+      return ReadConsole;
+    }
+
+
+
+
+ 
   }
 }
