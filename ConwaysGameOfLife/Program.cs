@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace ConwaysGameOfLife
 {
@@ -8,30 +10,25 @@ namespace ConwaysGameOfLife
     {
       var userInput = new UserInput();
       var output = new Output();
+      Console.Write(output.IntroMessage);
 
-      Console.Write(output.GetIntro());
-      var inputRows = userInput.ReadInput();
+      int rowDimension;
+      int columnDimension;
 
-      Console.Write(output.)
-      var inputCols = userInput.ReadInput();
-
-      var tryParseRows = int.TryParse(inputRows, out int rows);
-      var tryParseCols = int.TryParse(inputCols, out int cols);
-
-      var world = new World(rows, cols);
+      Console.Write(output.RowPrompt);
+      InputParser.TryParseDimensions(userInput.ReadInput(), out rowDimension);
+      Console.Write(output.ColumnPrompt);
+      InputParser.TryParseDimensions(userInput.ReadInput(), out columnDimension);
+      var world = new World(rowDimension, columnDimension);
 
       Console.Write(world.PrintWorld());
-
       Console.WriteLine("innoculate world with some live cells");
       Console.WriteLine("input your coordinates in the following format: 0,0 0,1 0,2 4,4 2,2 ");
-
-      var coordinateList = UserInput.DigestCoordinates(userInput.ReadInput());
+     List<Index> coordinateList = GetValidIndexList();
       world.PopulateGrid(coordinateList);
-
 
       Console.Clear();
       Console.Write(world.PrintWorld());
-
 
       while (1 < 100)
       {
@@ -45,10 +42,20 @@ namespace ConwaysGameOfLife
           Console.Write(world.PrintWorld());
         }
       }
+    }
+    
+    private static List<Index> GetValidIndexList()
+    {
+      var input = Console.ReadLine();
+      List<Index> coordinateList;
 
+      while (!InputParser.TryParseInputIndexes(input, out coordinateList))
+      {
+        Console.WriteLine("input your coordinates in the following format: 0,0 0,1 0,2 4,4 2,2 ");
+        input = Console.ReadLine();
 
-
-
+      }
+      return coordinateList;
     }
   }
 }

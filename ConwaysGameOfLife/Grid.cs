@@ -22,15 +22,15 @@ namespace ConwaysGameOfLife
       set => _cellGrid[row, column] = value;
     }
 
-    public TItemType this[Coordinate coordinates]
+    public TItemType this[Index coordinates]
     {
       get => _cellGrid[coordinates.Row, coordinates.Column];
       set => _cellGrid[coordinates.Row, coordinates.Column] = value;
     }
 
-    public void SetMany(List<Coordinate> coordinatesToSet, TItemType value)
+    public void SetMany(List<Index> coordinatesToSet, TItemType value)
     {
-      foreach (Coordinate coordinate in coordinatesToSet)
+      foreach (Index coordinate in coordinatesToSet)
       {
         if (coordinate.Column < ColumnCount && coordinate.Row < RowCount)
         {

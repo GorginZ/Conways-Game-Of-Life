@@ -27,7 +27,7 @@ namespace ConwaysGameOfLife.Tests
     {
       var grid = new Grid<CellState>(5, 5);
 
-      var listOfCoordinatesToManipulate = new List<Coordinate> { new Coordinate(0, 0), new Coordinate(0, 1) };
+      var listOfCoordinatesToManipulate = new List<Index> { new Index(0, 0), new Index(0, 1) };
 
       grid.SetMany(listOfCoordinatesToManipulate, CellState.Alive);
 
@@ -39,7 +39,7 @@ namespace ConwaysGameOfLife.Tests
     {
       var grid = new Grid<CellState>(5, 5);
 
-      var listOfCoordinatesToManipulate = new List<Coordinate> { new Coordinate(4, 4), new Coordinate(4, 9) };
+      var listOfCoordinatesToManipulate = new List<Index> { new Index(4, 4), new Index(4, 9) };
 
       grid.SetMany(listOfCoordinatesToManipulate, CellState.Alive);
 

@@ -2,7 +2,7 @@ namespace ConwaysGameOfLife
 {
     public interface IWrite
     {
-        string WriteOutput(); 
+        void WriteOutput(); 
         
     }
 }

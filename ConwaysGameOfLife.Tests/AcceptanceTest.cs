@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace ConwaysGameOfLife.Tests
@@ -8,10 +9,11 @@ namespace ConwaysGameOfLife.Tests
     [Fact]
     public void ShouldReproduceOscilatingPatterns()
     {
-      var coords = "3,3 4,3 5,3";
+      var coordinates = "3,3 4,3 5,3";
       var world = new World(10, 10);
 
-      var coordinateList = Coordinate.DigestCoordinates(coords);
+      List<Index> coordinateList;
+      InputParser.TryParseInputIndexes(coordinates, out coordinateList);
       world.PopulateGrid(coordinateList);
 
       Assert.True(world.IsLiveCell(world.GetGrid()[3, 3]));
