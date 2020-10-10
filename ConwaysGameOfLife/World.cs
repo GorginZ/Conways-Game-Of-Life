@@ -8,13 +8,6 @@ namespace ConwaysGameOfLife
   {
     private Grid<CellState> _grid;
 
-
-    private List<Index> _startingState;
-    [Required]
-    private int _rowDimension;
-    [Required]
-    private int _columnDimension;
-
     public World(int rowDimension, int columnDimension)
     {
       _grid = new Grid<CellState>(rowDimension, columnDimension);
