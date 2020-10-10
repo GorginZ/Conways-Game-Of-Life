@@ -33,21 +33,8 @@ namespace ConwaysGameOfLife
       return false;
     }
 
-    public static bool TryParseDimensions(string inputDimension, out int dimension)
-    {
-      if (int.Parse(inputDimension) < 100 && int.Parse(inputDimension) > 3)
-      {
-        dimension = int.Parse(inputDimension);
-        return true;
-      }
-      else
-      {
-        dimension = 0;
-        return false;
-      }
 
-
-    }
+    
 
 
   }
