@@ -39,7 +39,7 @@ namespace ConwaysGameOfLife
       }
     }
 
-      public String SeeGrid()
+      public String GridToSTring()
     {
       var seeSB = new StringBuilder();
 

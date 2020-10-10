@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Diagnostics;
+using System.Text;
 
 namespace ConwaysGameOfLife
 {
@@ -11,8 +12,6 @@ namespace ConwaysGameOfLife
     static void Main(string[] args)
     {
       Console.BackgroundColor = ConsoleColor.DarkGray;
-      // Console.SetCursorPosition(0, 200);
-
       Console.ForegroundColor = ConsoleColor.Red;
       var userInput = new UserInput();
       int rowDimension;
@@ -27,7 +26,9 @@ namespace ConwaysGameOfLife
       columnDimension = GetValidDimensions();
       var world = new World(rowDimension, columnDimension);
 
-      Console.WriteLine(world.PrintWorld());
+      var grid = VisualizeGridInConsole(world.GetGrid());
+      Console.WriteLine(grid);
+
       Console.WriteLine("innoculate world with some live cells");
       Console.WriteLine("input your coordinates in the following format: 0,0 0,1 0,2 4,4 2,2 ");
 
@@ -38,11 +39,10 @@ namespace ConwaysGameOfLife
       {
         Console.Clear();
         // Console.WriteLine(world.PrintWorld());
-        var textToEnter = "CONWAYS GAME OF LIFE";
-        var stringWorld = world.PrintWorld();
-        Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (textToEnter.Length / 2)) + "}", textToEnter));
+        var heading = "CONWAYS GAME OF LIFE";
+        var stringWorld = VisualizeGridInConsole(world.GetGrid());
 
-        //adjut positioning for left field
+        Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (heading.Length / 2)) + "}", heading));
         Console.WriteLine(String.Format("{0," + ((Console.WindowWidth) + (stringWorld.Length)) + "}", stringWorld));
 
         Thread.Sleep(1000);
@@ -51,7 +51,28 @@ namespace ConwaysGameOfLife
       }
     }
 
+    private static string VisualizeGridInConsole(Grid<CellState> grid)
+    {
+      var seeSB = new StringBuilder();
 
+      for (int i = 0; i < grid.RowCount; i++)
+      {
+        for (int j = 0; j < grid.ColumnCount; j++)
+        {
+          if (grid[i, j] == CellState.Alive)
+          {
+            seeSB.Append("X");
+          }
+          else
+          {
+            seeSB.Append(" ");
+          }
+        }
+        seeSB.Append("\n");
+      }
+      return seeSB.ToString();
+
+    }
 
     private static List<Index> GetValidIndexList()
     {
