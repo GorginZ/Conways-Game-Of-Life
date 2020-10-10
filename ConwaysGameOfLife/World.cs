@@ -35,7 +35,7 @@ namespace ConwaysGameOfLife
     }
     public string PrintWorld()
     {
-      return this._grid.SeeGrid();
+      return this._grid.GridToSTring();
     }
 
     public void PopulateGrid(List<Index> CoordinatesList)
