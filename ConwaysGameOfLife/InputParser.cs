@@ -4,10 +4,10 @@ namespace ConwaysGameOfLife
 {
   public static class InputParser
   {
-    public static bool TryParseInputIndexes(string input, out List<Index> indexList)
+    public static bool TryParseInputIndexes(string input, out List<RowColumn> indexList)
     {
 
-      indexList = new List<Index>();
+      indexList = new List<RowColumn>();
 
       if (input.Length < 3)
       {
@@ -23,7 +23,7 @@ namespace ConwaysGameOfLife
 
         if (rowTryParse && colTryParse)
         {
-          indexList.Add(new Index(row, column));
+          indexList.Add(new RowColumn(row, column));
         }
       }
       if (indexList.Count == indexCount)

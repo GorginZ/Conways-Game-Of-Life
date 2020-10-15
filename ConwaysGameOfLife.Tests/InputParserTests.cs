@@ -5,19 +5,19 @@ namespace ConwaysGameOfLife.Tests
 {
   public class InputParserTests
   {
-    [Fact]
-    public void CanReturnListOfIndexesFromInputString()
-    {
-      var world = new World(10, 10);
+    // [Fact]
+    // public void CanReturnListOfIndexesFromInputString()
+    // {
+    //   var world = new World(10, 10);
 
-      string inputString = "3";
-      List<Index> listOfIndexes;
-      InputParser.TryParseInputIndexes(inputString, out listOfIndexes);
+    //   string inputString = "3";
+    //   List<RowColumn> listOfIndexes;
+    //   InputParser.TryParseInputIndexes(inputString, out listOfIndexes);
 
-      world.PopulateGrid(listOfIndexes);
-      var worldGrid = world.GetGrid();
+    //   world.PopulateGrid(listOfIndexes);
+    //   var worldGrid = world.GetGrid();
 
-      Assert.True(world.IsLiveCell(worldGrid[0, 0]));
-    }
+    //   Assert.True(world.IsLiveCell(worldGrid[0, 0]));
+    // }
   }
 }

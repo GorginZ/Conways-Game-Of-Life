@@ -25,7 +25,7 @@ namespace ConwaysGameOfLife.Tests
 
       Assert.True(world.IsDeadWorld());
 
-      var coordinatesToPopulateList = new List<Index> { new Index(0, 0), new Index(0, 1) };
+      var coordinatesToPopulateList = new List<RowColumn> { new RowColumn(0, 0), new RowColumn(0, 1) };
 
       world.PopulateGrid(coordinatesToPopulateList);
 
@@ -37,7 +37,7 @@ namespace ConwaysGameOfLife.Tests
     public void Can_Determine_Number_Of_Live_Neighbours()
     {
       var world = new World(10, 10);
-      var coordinatesToPopulateList = new List<Index> { new Index(4, 4), new Index(4, 5), new Index(4, 6) };
+      var coordinatesToPopulateList = new List<RowColumn> { new RowColumn(4, 4), new RowColumn(4, 5), new RowColumn(4, 6) };
       world.PopulateGrid(coordinatesToPopulateList);
 
       var neighboursList = world.GetListOfCoordinatesForThisCellsNeighbours(4, 5);
@@ -50,7 +50,7 @@ namespace ConwaysGameOfLife.Tests
     public void Any_Live_Cell_With_Two_Live_Neighbours_Lives()
     {
       var world = new World(10, 10);
-      var coordinatesToPopulateList = new List<Index> { new Index(1, 5), new Index(1, 6), new Index(1, 7) };
+      var coordinatesToPopulateList = new List<RowColumn> { new RowColumn(1, 5), new RowColumn(1, 6), new RowColumn(1, 7) };
       world.PopulateGrid(coordinatesToPopulateList);
 
 
@@ -63,7 +63,7 @@ namespace ConwaysGameOfLife.Tests
     public void Any_Live_Cell_With_Three_Live_Neighbours_Lives()
     {
       var world = new World(10, 10);
-      var coordinatesToPopulateList = new List<Index> { new Index(1, 5), new Index(1, 6), new Index(1, 7), new Index(0, 6) };
+      var coordinatesToPopulateList = new List<RowColumn> { new RowColumn(1, 5), new RowColumn(1, 6), new RowColumn(1, 7), new RowColumn(0, 6) };
       world.PopulateGrid(coordinatesToPopulateList);
 
       world.Tick();
@@ -76,7 +76,7 @@ namespace ConwaysGameOfLife.Tests
     public void Any_Live_Cell_With_Fewer_Than_Two_Live_Neighbours_Dies()
     {
       var world = new World(10, 10);
-      var coordinatesToPopulateList = new List<Index> { new Index(4, 4), new Index(4, 5), new Index(4, 6) };
+      var coordinatesToPopulateList = new List<RowColumn> { new RowColumn(4, 4), new RowColumn(4, 5), new RowColumn(4, 6) };
       world.PopulateGrid(coordinatesToPopulateList);
 
       Assert.True(world.IsLiveCell(world.GetGrid()[4, 4]));
@@ -92,7 +92,7 @@ namespace ConwaysGameOfLife.Tests
     static void Any_Live_Cell_With_More_Than_Three_Live_Neighbours_Dies()
     {
       var world = new World(10, 10);
-      var coordinatesToPopulateList = new List<Index> { new Index(4, 4), new Index(4, 5), new Index(4, 6), new Index(5, 3), new Index(5, 4), new Index(5, 5) };
+      var coordinatesToPopulateList = new List<RowColumn> { new RowColumn(4, 4), new RowColumn(4, 5), new RowColumn(4, 6), new RowColumn(5, 3), new RowColumn(5, 4), new RowColumn(5, 5) };
       world.PopulateGrid(coordinatesToPopulateList);
 
       Assert.True(world.IsLiveCell(world.GetGrid()[4, 4]));
@@ -107,7 +107,7 @@ namespace ConwaysGameOfLife.Tests
     static void Any_Dead_Cell_With_Exactly_Three_Live_Neighbours_Becomes_Live()
     {
       var world = new World(10, 10);
-      var coordinatesToPopulateList = new List<Index> { new Index(4, 4), new Index(4, 5), new Index(4, 6), new Index(5, 3), new Index(5, 4), new Index(5, 5) };
+      var coordinatesToPopulateList = new List<RowColumn> { new RowColumn(4, 4), new RowColumn(4, 5), new RowColumn(4, 6), new RowColumn(5, 3), new RowColumn(5, 4), new RowColumn(5, 5) };
       world.PopulateGrid(coordinatesToPopulateList);
 
 
@@ -124,7 +124,7 @@ namespace ConwaysGameOfLife.Tests
 
       var neighboursList = world.GetListOfCoordinatesForThisCellsNeighbours(0, 1);
 
-      Assert.Contains(new Index(9, 1), neighboursList);
+      Assert.Contains(new RowColumn(9, 1), neighboursList);
 
     }
 
@@ -135,7 +135,7 @@ namespace ConwaysGameOfLife.Tests
   
       var neighboursList = world.GetListOfCoordinatesForThisCellsNeighbours(1, 0);
 
-      Assert.Contains(new Index(1, 9), neighboursList);
+      Assert.Contains(new RowColumn(1, 9), neighboursList);
     }
 
 
