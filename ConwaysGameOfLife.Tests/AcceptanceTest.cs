@@ -12,7 +12,7 @@ namespace ConwaysGameOfLife.Tests
       var coordinates = "3,3 4,3 5,3";
       var world = new World(10, 10);
 
-      List<Index> coordinateList;
+      List<RowColumn> coordinateList;
       InputParser.TryParseInputIndexes(coordinates, out coordinateList);
       world.PopulateGrid(coordinateList);
 

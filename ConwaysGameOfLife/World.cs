@@ -38,7 +38,7 @@ namespace ConwaysGameOfLife
       return this._grid.GridToSTring();
     }
 
-    public void PopulateGrid(List<Index> CoordinatesList)
+    public void PopulateGrid(List<RowColumn> CoordinatesList)
     {
       this._grid.SetMany(CoordinatesList, CellState.Alive);
     }
@@ -55,25 +55,25 @@ namespace ConwaysGameOfLife
     }
 
 
-    public List<Index> GetListOfCoordinatesForThisCellsNeighbours(int row, int column)
+    public List<RowColumn> GetListOfCoordinatesForThisCellsNeighbours(int row, int column)
     {
       var leftNeighbour = column == 0 ? (_grid.ColumnCount - 1) : (column - 1);
       var rightNeighbour = column == (_grid.ColumnCount - 1) ? (0) : (column + 1);
       var upNeighbour = row == 0 ? (_grid.RowCount - 1) : (row - 1);
       var downNeighbour = row == (_grid.RowCount - 1) ? (0) : (row + 1);
 
-      var neighbourList = new List<Index>
+      var neighbourList = new List<RowColumn>
       {
-        new Index(row, rightNeighbour), new Index(row, leftNeighbour), new Index(upNeighbour, column), new Index(downNeighbour, column), new Index(upNeighbour, rightNeighbour), new Index(upNeighbour, leftNeighbour), new Index(downNeighbour, rightNeighbour), new Index(downNeighbour, leftNeighbour)
+        new RowColumn(row, rightNeighbour), new RowColumn(row, leftNeighbour), new RowColumn(upNeighbour, column), new RowColumn(downNeighbour, column), new RowColumn(upNeighbour, rightNeighbour), new RowColumn(upNeighbour, leftNeighbour), new RowColumn(downNeighbour, rightNeighbour), new RowColumn(downNeighbour, leftNeighbour)
         };
 
       return neighbourList;
     }
-    public int LiveNeighbourCount(Grid<CellState> _grid, List<Index> neighbourList)
+    public int LiveNeighbourCount(Grid<CellState> _grid, List<RowColumn> neighbourList)
     {
       int count = 0;
 
-      foreach (Index coordinate in neighbourList)
+      foreach (RowColumn coordinate in neighbourList)
       {
         if (IsLiveCell(_grid[coordinate.Row, coordinate.Column]))
         {
@@ -83,9 +83,9 @@ namespace ConwaysGameOfLife
       return count;
     }
 
-    private List<Index> CellsToMakeAliveOnTick()
+    private List<RowColumn> CellsToMakeAliveOnTick()
     {
-      var CoordinatesOfCellsToAlive = new List<Index>();
+      var CoordinatesOfCellsToAlive = new List<RowColumn>();
 
       for (int row = 0; row < _grid.RowCount; row++)
       {
@@ -97,12 +97,12 @@ namespace ConwaysGameOfLife
           // Any live cell with two or three live neighbours lives on to the next generation.
           if (IsLiveCell(_grid[row, column]) && (numberOfLiveNeighbours.Equals(3) || numberOfLiveNeighbours.Equals(2)))
           {
-            CoordinatesOfCellsToAlive.Add(new Index(row, column));
+            CoordinatesOfCellsToAlive.Add(new RowColumn(row, column));
           }
           // Any dead cell with exactly three live neighbours becomes a live cell.
           if (!IsLiveCell(_grid[row, column]) && numberOfLiveNeighbours.Equals(3))
           {
-            CoordinatesOfCellsToAlive.Add(new Index(row, column));
+            CoordinatesOfCellsToAlive.Add(new RowColumn(row, column));
           }
 
         }
